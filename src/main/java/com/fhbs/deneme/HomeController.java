@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.fhbs.deneme.kitap;
-import com.fhbs.deneme.cekici.cekerim;
 /**
  * Handles requests for the application home page.
  */
