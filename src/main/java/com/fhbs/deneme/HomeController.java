@@ -1,16 +1,25 @@
 package com.fhbs.deneme;
 
 import java.text.DateFormat;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import Dao.JdbcKitapDao;
+import Entity.kitap;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import com.fhbs.deneme.kitap;
+import org.springframework.web.servlet.ModelAndView;
+
+import Dao.JdbcKitapDao;
+import Entity.*;
 /**
  * Handles requests for the application home page.
  */
@@ -33,6 +42,38 @@ public class HomeController {
 		String yenideneme = "4";
 		model.addAttribute("serverTime", yenideneme );
 		return "home";
+	}
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView getdata() {
+
+		//return back to index.jsp
+		ModelAndView model = new ModelAndView("index");
+		ApplicationContext context =
+	    		new ClassPathXmlApplicationContext("Spring-Module.xml");
+
+    	JdbcKitapDao kitapDao = (JdbcKitapDao) context.getBean("kitapDao");
+		ArrayList <kitap> kitap = kitapDao.getKitap();
+		model.addObject("lists", kitap);
+
+		return model;
+
+	}
+	@RequestMapping(value = "/",method = RequestMethod.GET)
+	public String admin(Locale locale,Model model){
+		User furkan = new User(007l,"James","Bond","123456789","furkankykc","02140001050");
+		ApplicationContext context =
+	    		new ClassPathXmlApplicationContext("Spring-Module.xml");
+
+	    	JdbcKitapDao kitapDao = (JdbcKitapDao) context.getBean("kitapDao");
+	    	//kitapDao.insert(new kitap("denemeekleme","ekledinmi"));
+	       
+	        kitap kitap = kitapDao.getKitap(1);
+	        
+		model.addAttribute("user",kitap);
+		
+		
+		
+		return "admin";
 	}
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Locale locale, Model model) {
