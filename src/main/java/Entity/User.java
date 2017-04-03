@@ -18,6 +18,10 @@ public class User {
 		this.studentId = null;
 		
 	}
+	public User(String userName,String password){
+		this.userName = userName;
+		this.password = password;
+	}
 	
 	public User(Long id, String name, String surName, String password, String userName,String studentId) {
 		super();

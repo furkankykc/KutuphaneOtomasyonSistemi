@@ -4,7 +4,7 @@
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 	<import resource="Spring-Datasource.xml" />
-	<import resource="Spring-kitap.xml" />
+	<import resource="Spring-Kitap.xml" />
 	<import resource="Spring-Login.xml"/>
 
 </beans>

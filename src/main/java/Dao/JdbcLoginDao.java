@@ -5,20 +5,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.sql.DataSource;
-import Entity.LoginBean;
+import Entity.User;
 public class JdbcLoginDao {
 
 
 		private DataSource dataSource;
-		LoginBean user = null;
-		ArrayList<LoginBean> userList = null;
+		User user = null;
+		ArrayList<User> userList = null;
 		
 	
 		public void setDataSource(DataSource dataSource) {
 			this.dataSource = dataSource;
 		}
 		
-		public void insert(LoginBean login){
+		public void insert(User login){
 
 			String sql = "INSERT INTO user " +
 					"(username,password) VALUES (?, ?)";
@@ -45,7 +45,7 @@ public class JdbcLoginDao {
 			}
 		}
 
-		public LoginBean getUser(String username){
+		public User getUser(String username){
 
 			String sql = "SELECT * FROM user WHERE username = ? ";
 			
@@ -58,7 +58,7 @@ public class JdbcLoginDao {
 				
 				ResultSet rs = ps.executeQuery();
 				if (rs.next()) {
-					this.user = new LoginBean(
+					this.user = new User(
 						rs.getString("username"),
 						rs.getString("password")
 					);
@@ -77,9 +77,9 @@ public class JdbcLoginDao {
 			}
 		}
 		
-		public ArrayList<LoginBean> getUser(){
+		public ArrayList<User> getUser(){
 			String sql = "SELECT * FROM user ";
-			userList = new ArrayList<LoginBean>();
+			userList = new ArrayList<User>();
 			Connection conn = null;
 			
 			try {
@@ -87,7 +87,7 @@ public class JdbcLoginDao {
 				PreparedStatement ps = conn.prepareStatement(sql);
 				ResultSet rs = ps.executeQuery();
 				while (rs.next()) 
-					this.userList.add(new LoginBean(
+					this.userList.add(new User(
 						rs.getString("username"),
 						rs.getString("password")
 					));

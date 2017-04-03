@@ -52,7 +52,7 @@ public class HomeController {
 
     	JdbcKitapDao kitapDao = (JdbcKitapDao) context.getBean("kitapDao");
     	JdbcLoginDao loginDao = (JdbcLoginDao) context.getBean("LoginDao");
-		ArrayList<LoginBean> kitap = loginDao.getUser();
+		ArrayList<User> kitap = loginDao.getUser();
 		model.addObject("lists", kitap);
 
 		return model;

@@ -9,7 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import Dao.JdbcKitapDao;
 import Dao.JdbcLoginDao;
-import Entity.LoginBean;
+import Entity.User;
  
 @Controller
 public class LoginController {
@@ -20,11 +20,11 @@ public class LoginController {
     }
  
     @RequestMapping(method = RequestMethod.POST)
-    public String submit(Model model, @ModelAttribute("loginBean") LoginBean loginBean) {
+    public String submit(Model model, @ModelAttribute("loginBean") User loginBean) {
     	ApplicationContext context =
 	    		new ClassPathXmlApplicationContext("Spring-Module.xml");
     	JdbcLoginDao loginDao = (JdbcLoginDao) context.getBean("LoginDao");
-    	LoginBean girdi=loginDao.getUser(loginBean.getUserName());
+    	User girdi=loginDao.getUser(loginBean.getUserName());
     	if (girdi!=null && girdi.getPassword()!=null && girdi.getUserName()!= null && loginBean != null && loginBean.getUserName() != null & loginBean.getPassword() != null) {
 	    	if(girdi.getPassword().equals(loginBean.getPassword())){
 	    		model.addAttribute("msg", "welcome " + loginBean.getUserName());
