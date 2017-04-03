@@ -4,14 +4,13 @@ import java.text.DateFormat;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import Dao.JdbcKitapDao;
-import Entity.kitap;
+import Dao.JdbcLoginDao;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,7 +51,8 @@ public class HomeController {
 	    		new ClassPathXmlApplicationContext("Spring-Module.xml");
 
     	JdbcKitapDao kitapDao = (JdbcKitapDao) context.getBean("kitapDao");
-		ArrayList <kitap> kitap = kitapDao.getKitap();
+    	JdbcLoginDao loginDao = (JdbcLoginDao) context.getBean("LoginDao");
+		ArrayList<LoginBean> kitap = loginDao.getUser();
 		model.addObject("lists", kitap);
 
 		return model;
