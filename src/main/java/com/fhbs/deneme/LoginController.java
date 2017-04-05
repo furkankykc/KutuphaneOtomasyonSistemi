@@ -25,7 +25,7 @@ public class LoginController {
 	    		new ClassPathXmlApplicationContext("Spring-Module.xml");
     	JdbcLoginDao loginDao = (JdbcLoginDao) context.getBean("LoginDao");
     	User girdi=loginDao.getUser(loginBean.getUserName());
-    	if (girdi!=null && girdi.getPassword()!=null && girdi.getUserName()!= null && loginBean != null && loginBean.getUserName() != null & loginBean.getPassword() != null) {
+    	if (girdi!= null && loginBean != null && loginBean.getUserName() != null & loginBean.getPassword() != null) {
 	    	if(girdi.getPassword().equals(loginBean.getPassword())){
 	    		model.addAttribute("msg", "welcome " + loginBean.getUserName());
 	    		return "success";
