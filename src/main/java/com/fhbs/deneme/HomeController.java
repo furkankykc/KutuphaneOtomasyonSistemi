@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -59,22 +60,42 @@ public class HomeController {
 
 	}
 	@RequestMapping(value = "/",method = RequestMethod.GET)
+	public String admin(Locale locale, Model model, @ModelAttribute("kitapBean") kitap kitapBean) {
+    	ApplicationContext context =
+	    		new ClassPathXmlApplicationContext("Spring-Module.xml");
+    	JdbcKitapDao kitapDao = (JdbcKitapDao) context.getBean("kitapDao");
+    	if(kitapBean!=null){
+	    	kitapDao.insert(kitapBean);	
+	    	return "admin";
+    	}
+        
+    
+    	return "admin";
+    
+    }
+	
+	/*@RequestMapping(value = "/",method = RequestMethod.GET)
 	public String admin(Locale locale,Model model){
-		User furkan = new User(007l,"James","Bond","123456789","furkankykc","02140001050");
+		User furkan = new User(007l,"James","Bond","1234561313789","furkankykc","02140001050");
 		ApplicationContext context =
 	    		new ClassPathXmlApplicationContext("Spring-Module.xml");
 
 	    	JdbcKitapDao kitapDao = (JdbcKitapDao) context.getBean("kitapDao");
 	    	//xkitapDao.insert(new kitap("denemeekleme","ekledinmi"));
-	       
-	        kitap kitap = kitapDao.getKitap(1);
-	        
+	       JdbcLoginDao loginDao = (JdbcLoginDao) context.getBean("LoginDao");
+	       loginDao.insert(furkan);
+	        ArrayList<kitap> kitap = kitapDao.getKitap();
+	  
 		model.addAttribute("user",kitap);
 		
 		
 		
 		return "admin";
-	}
+	}*/
+	
+	
+	
+	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Locale locale, Model model) {
 		logger.info("Welcome home! sfsdfsdfThe client locale is {}.", locale);

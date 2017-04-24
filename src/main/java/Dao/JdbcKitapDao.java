@@ -8,6 +8,7 @@ package Dao;
 	import java.sql.SQLException;
 	import java.util.ArrayList;
 
+import javax.management.RuntimeErrorException;
 import javax.sql.DataSource;
 	import Entity.kitap;
 
@@ -20,7 +21,28 @@ import javax.sql.DataSource;
 		public void setDataSource(DataSource dataSource) {
 			this.dataSource = dataSource;
 		}
-		
+		public void delete(kitap kitap) {
+			String sql  = "DELETE FROM kitap " +
+					"WHERE ad=? and yazar=?";
+			Connection conn = null;
+			try{
+				conn = dataSource.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setString(1, kitap.getAd());
+				ps.setString(2,	kitap.getYazar());
+				ps.executeUpdate();
+				ps.close();
+				
+			}catch(SQLException e){
+				throw new RuntimeException(e);
+			}
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		}
 		public void insert(kitap kitap){
 
 			String sql = "INSERT INTO kitap " +

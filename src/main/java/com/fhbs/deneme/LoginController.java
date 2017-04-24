@@ -15,11 +15,12 @@ import Entity.User;
 public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String init(Model model) {
-        model.addAttribute("msg", "Please Enter Your Login Details");
+        model.addAttribute("msg", "id sifre gir");
         return "login";
     }
+
  
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     public String submit(Model model, @ModelAttribute("loginBean") User loginBean) {
     	ApplicationContext context =
 	    		new ClassPathXmlApplicationContext("Spring-Module.xml");
@@ -27,15 +28,17 @@ public class LoginController {
     	User girdi=loginDao.getUser(loginBean.getUserName());
     	if (girdi!= null && loginBean != null && loginBean.getUserName() != null & loginBean.getPassword() != null) {
 	    	if(girdi.getPassword().equals(loginBean.getPassword())){
-	    		model.addAttribute("msg", "welcome " + loginBean.getUserName());
+	    		model.addAttribute("msg", "giriş yapılan hesap : "+ loginBean.getUserName());
 	    		return "success";
 	    	} else {
-                model.addAttribute("error", "Invalid Details");
+                model.addAttribute("error", "hatali kullanıcı adı yada sifre");
+                
                 return "login";
             }
     	
         } else {
-            model.addAttribute("error", "Please enter Details");
+            model.addAttribute("error", "doldurburaları ");
+            
             return "login";
         }
     

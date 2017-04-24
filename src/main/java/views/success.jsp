@@ -7,8 +7,8 @@
 <title>Success Form</title>
 </head>
 <body>
-	<font color="green"><h1>Hello</h1></font>
-	<h2>${msg}</h2> You have successfully logged in.
-	<font color="green"><h1>Welcome to Spring world !</h1></font>
+	<font color="green"><h1>Hoşgeldiniz</h1></font>
+	<h2>${msg}</h2> Başarıyla giriş yaptınız
+	<font color="green"><h1>yupi</h1></font>
 </body>
 </html>
