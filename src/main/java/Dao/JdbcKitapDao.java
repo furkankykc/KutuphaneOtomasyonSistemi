@@ -21,6 +21,27 @@ import javax.sql.DataSource;
 		public void setDataSource(DataSource dataSource) {
 			this.dataSource = dataSource;
 		}
+		public void delete(String kitapId) {
+			String sql  = "DELETE FROM kitap " +
+					"WHERE id=?";
+			Connection conn = null;
+			try{
+				conn = dataSource.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setString(1, kitapId);
+				ps.executeUpdate();
+				ps.close();
+				
+			}catch(SQLException e){
+				throw new RuntimeException(e);
+			}
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		}
 		public void delete(kitap kitap) {
 			String sql  = "DELETE FROM kitap " +
 					"WHERE ad=? and yazar=?";
