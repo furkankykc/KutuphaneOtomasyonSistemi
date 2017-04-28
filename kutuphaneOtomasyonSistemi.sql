@@ -58,7 +58,7 @@ create table Book(
     category_id int,
     publisher_id int,
     printingDate datetime,
-    CONSTRAINT fk_book_author_id FOREIGN KEY (author_id) REFERENCES author(idAuthor),
+    CONSTRAINT fk_book_author_id FOREIGN KEY (author_id) REFERENCES Author(idAuthor),
     CONSTRAINT fk_book_category_id FOREIGN KEY (category_id) REFERENCES Category(idCategory),
     CONSTRAINT fk_book_publisher_id FOREIGN KEY (publisher_id) REFERENCES Publisher(idPublisher)
     
