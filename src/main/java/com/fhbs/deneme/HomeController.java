@@ -65,7 +65,7 @@ public class HomeController {
 	    		new ClassPathXmlApplicationContext("Spring-Module.xml");
     	JdbcKitapDao kitapDao = (JdbcKitapDao) context.getBean("kitapDao");
     	if(kitapBean!=null){
-	    	kitapDao.insert(kitapBean);	
+	    	
 	    	return "admin";
     	}
         
