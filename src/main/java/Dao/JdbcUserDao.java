@@ -8,24 +8,24 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-import Entity.Author;
+import Entity.User;;
 
-public class JdbcAuthorDao {
+public class JdbcUserDao {
 	private DataSource dataSource;
-	Author Author = null;
-	ArrayList<Author> AuthorList = null;
+	User User = null;
+	ArrayList<User> UserList= null;
 
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	public void delete(String AuthorId) {
-		String sql  = "DELETE FROM Author " +
-				"WHERE idAuthor=?";
+	public void delete(String UserId) {
+		String sql  = "DELETE FROM User " +
+				"WHERE idUser=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, AuthorId);
+			ps.setString(1, UserId);
 			ps.executeUpdate();
 			ps.close();
 			
@@ -39,15 +39,15 @@ public class JdbcAuthorDao {
 					e.printStackTrace();
 				}
 	}
-	public void delete(Author Author) {
-		String sql  = "DELETE FROM Author " +
-				"WHERE idAuthor=? and firstName=?";
+	public void delete(User User) {
+		String sql  = "DELETE FROM User " +
+				"WHERE idUser=? and =userName?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Author.getIdAuthor());
-			ps.setString(2,	Author.getFirstName());
+			ps.setInt(1, User.getIdUser());
+			ps.setString(2,	User.getUserName());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -61,18 +61,18 @@ public class JdbcAuthorDao {
 					e.printStackTrace();
 				}
 	}
-	public void insert(Author Author){
+	public void insert(User User){
 
-		String sql = "INSERT INTO Author " +
-				"(idAuthor,firstName) VALUES (?, ?)";
+		String sql = "INSERT INTO User " +
+				"(idUser,userName) VALUES (?, ?)";
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, Author.getIdAuthor());
-			ps.setString(2, Author.getFirstName());
+			ps.setInt(1, User.getIdUser());
+			ps.setString(2, User.getUserName());
 			ps.executeUpdate();
 			ps.close();
 
@@ -87,29 +87,31 @@ public class JdbcAuthorDao {
 			}
 		}
 	}
-	public void update(Author Author){}
-	public Author getAuthor(int Authorid){
 
-		String sql = "SELECT * FROM Author WHERE idAuthor = ?";
+	public User getUser(int idUSer){
+
+		String sql = "SELECT * FROM User WHERE idUser = ?";
 		
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Authorid);
+			ps.setInt(1, idUSer);
 			
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				this.Author = new Author(
-					rs.getInt("idAuthor"),
+				this.User = new User(
+					rs.getInt("idUser"),
 					rs.getString("firstName"),
-					rs.getString("lastName")
+					rs.getString("lastName"),
+					rs.getString("userName"),
+					rs.getString("pasword")
 				);
 			}
 			rs.close();
 			ps.close();
-			return Author;
+			return User;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -121,24 +123,26 @@ public class JdbcAuthorDao {
 		}
 	}
 	
-	public ArrayList<Author> getAuthor(){
-		AuthorList = new ArrayList<Author>();
+	public ArrayList<User> getUser(){
+		UserList = new ArrayList<User>();
 		Connection conn = null;
 		
 		try {
 			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement("select * from Author");
+			PreparedStatement ps = conn.prepareStatement("select * from User");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) 
-				this.AuthorList.add(new Author(
-					rs.getInt("idAuthor"),
-					rs.getString("firstName"),
-					rs.getString("lastName")
+				this.UserList.add(new User(
+						rs.getInt("idUser"),
+						rs.getString("firstName"),
+						rs.getString("lastName"),
+						rs.getString("userName"),
+						rs.getString("pasword")
 				));
 			
 			rs.close();
 			ps.close();
-			return AuthorList;
+			return UserList;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
