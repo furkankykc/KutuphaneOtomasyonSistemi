@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 import Entity.Author;
 
-public class JdbcAutherDao {
+public class JdbcAuthorDao {
 	private DataSource dataSource;
 	Author Author = null;
 	ArrayList<Author> AuthorList = null;
@@ -87,7 +87,8 @@ public class JdbcAutherDao {
 			}
 		}
 	}
-
+	public void update(Author Author){}
+	//aklýna bisey gelirse eklersin
 	public Author getAuthor(int Authorid){
 
 		String sql = "SELECT * FROM Author WHERE idAuthor = ?";
