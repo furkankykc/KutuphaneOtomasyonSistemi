@@ -1,21 +1,20 @@
 package Entity;
 public class User {
 
-	private Long id;
-	private String name;
-	private String surName;
-	private String password;
+	private int idUser;
+	private String firstName;
+	private String lastName;
 	private String userName;
-	private String studentId;
+	private String password;
+	
 	
 	public User(){
 		super();
-		this.id= null;
-		this.name = null;
-		this.surName = null;
-		this.password = null;
+		this.idUser = 0;
+		this.firstName = null;
+		this.lastName = null;
 		this.userName = null;
-		this.studentId = null;
+		this.password = null;
 		
 	}
 	public User(String userName,String password){
@@ -23,41 +22,32 @@ public class User {
 		this.password = password;
 	}
 	
-	public User(Long id, String name, String surName, String password, String userName,String studentId) {
+	public User(int idUser, String firstName, String lastName, String userName, String password) {
 		super();
-		this.id = id;
-		this.name = name;
-		this.surName = surName;
-		this.password = password;
+		this.idUser = 0;
+		this.firstName = null;
+		this.lastName = null;
 		this.userName = userName;
-		this.studentId = studentId;
+		this.password = password;
+		
 	}
-	
-	
-	public Long getId() {
-		return id;
+	public int getIdUser() {
+		return idUser;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
 	}
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	public String getSurName() {
-		return surName;
+	public String getLastName() {
+		return lastName;
 	}
-	public void setSurName(String surName) {
-		this.surName = surName;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-	
-		this.password =password;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	public String getUserName() {
 		return userName;
@@ -65,18 +55,18 @@ public class User {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String getStudentId() {
-		return studentId;
+	public String getPassword() {
+		return password;
 	}
-	public void setStudentId(String studentId) {
-		this.studentId = studentId;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", surName=" + surName + ", password=" + password + ", userName="
-				+ userName + ", studentId=" + studentId + "]";
+		return "User [idUser=" + idUser + ", firstName=" + firstName + ", lastName=" + lastName + ", userName="
+				+ userName + ", password=" + password + "]";
 	}
-
+	
 }
 	
 
