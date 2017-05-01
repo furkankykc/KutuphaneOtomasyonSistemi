@@ -106,7 +106,41 @@ public class JdbcUserDao {
 					rs.getString("firstName"),
 					rs.getString("lastName"),
 					rs.getString("userName"),
-					rs.getString("pasword")
+					rs.getString("password")
+				);
+			}
+			rs.close();
+			ps.close();
+			return User;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			if (conn != null) {
+				try {
+				conn.close();
+				} catch (SQLException e) {}
+			}
+		}
+	}
+	public User getUser(String userName){
+
+		String sql = "SELECT * FROM User WHERE userName = ?";
+		
+		Connection conn = null;
+
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, userName);
+			
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				this.User = new User(
+					rs.getInt("idUser"),
+					rs.getString("firstName"),
+					rs.getString("lastName"),
+					rs.getString("userName"),
+					rs.getString("password")
 				);
 			}
 			rs.close();
@@ -137,7 +171,7 @@ public class JdbcUserDao {
 						rs.getString("firstName"),
 						rs.getString("lastName"),
 						rs.getString("userName"),
-						rs.getString("pasword")
+						rs.getString("password")
 				));
 			
 			rs.close();
