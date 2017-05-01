@@ -18,14 +18,14 @@ public class JdbcBookDao {
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	public void delete(String BookId) {
+	public void delete(int IdBook) {
 		String sql  = "DELETE FROM Book " +
 				"WHERE idBook=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, BookId);
+			ps.setInt(1, IdBook);
 			ps.executeUpdate();
 			ps.close();
 			

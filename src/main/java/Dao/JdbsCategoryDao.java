@@ -8,24 +8,24 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-import Entity.User;;
+import Entity.Category;;
 
-public class JdbcUserDao {
+public class JdbsCategoryDao {
 	private DataSource dataSource;
-	User User = null;
-	ArrayList<User> UserList= null;
+	Category Category = null;
+	ArrayList<Category> CategoryList= null;
 
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	public void delete(int IdUser) {
-		String sql  = "DELETE FROM User " +
-				"WHERE idUser=?";
+	public void delete(int IdCategory) {
+		String sql  = "DELETE FROM Category " +
+				"WHERE idCategory=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, IdUser);
+			ps.setInt(1, IdCategory);
 			ps.executeUpdate();
 			ps.close();
 			
@@ -39,15 +39,15 @@ public class JdbcUserDao {
 					e.printStackTrace();
 				}
 	}
-	public void delete(User User) {
-		String sql  = "DELETE FROM User " +
-				"WHERE idUser=? and =userName?";
+	public void delete(Category Category) {
+		String sql  = "DELETE FROM Category " +
+				"WHERE idCategory=? and catName=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, User.getIdUser());
-			ps.setString(2,	User.getUserName());
+			ps.setInt(1, Category.getIdCategory());
+			ps.setString(2,	Category.getCatName());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -61,18 +61,18 @@ public class JdbcUserDao {
 					e.printStackTrace();
 				}
 	}
-	public void insert(User User){
+	public void insert(Category Category){
 
-		String sql = "INSERT INTO User " +
-				"(idUser,userName) VALUES (?, ?)";
+		String sql = "INSERT INTO Category " +
+				"(idCategory,catName) VALUES (?, ?)";
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, User.getIdUser());
-			ps.setString(2, User.getUserName());
+			ps.setInt(1, Category.getIdCategory());
+			ps.setString(2, Category.getCatName());
 			ps.executeUpdate();
 			ps.close();
 
@@ -88,64 +88,28 @@ public class JdbcUserDao {
 		}
 	}
 
-	public User getUser(int idUSer){
+	public Category getCategory(int idCategory){
 
-		String sql = "SELECT * FROM User WHERE idUser = ?";
+		String sql = "SELECT * FROM Category WHERE idCategory = ?";
 		
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, idUSer);
+			ps.setInt(1, idCategory);
 			
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				this.User = new User(
-					rs.getInt("idUser"),
-					rs.getString("firstName"),
-					rs.getString("lastName"),
-					rs.getString("userName"),
-					rs.getString("password")
+				this.Category = new Category(
+					rs.getInt("idCategory"),
+					rs.getString("catName")
+				
 				);
 			}
 			rs.close();
 			ps.close();
-			return User;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			if (conn != null) {
-				try {
-				conn.close();
-				} catch (SQLException e) {}
-			}
-		}
-	}
-	public User getUser(String userName){
-
-		String sql = "SELECT * FROM User WHERE userName = ?";
-		
-		Connection conn = null;
-
-		try {
-			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, userName);
-			
-			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
-				this.User = new User(
-					rs.getInt("idUser"),
-					rs.getString("firstName"),
-					rs.getString("lastName"),
-					rs.getString("userName"),
-					rs.getString("password")
-				);
-			}
-			rs.close();
-			ps.close();
-			return User;
+			return Category;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -157,26 +121,25 @@ public class JdbcUserDao {
 		}
 	}
 	
-	public ArrayList<User> getUser(){
-		UserList = new ArrayList<User>();
+	@SuppressWarnings("unused")
+	public ArrayList<Category> getCategory(){
+		String sql = "SELECT * FROM Category ";
+		CategoryList = new ArrayList<Category>();
 		Connection conn = null;
 		
 		try {
 			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement("select * from User");
+			PreparedStatement ps = conn.prepareStatement("select * from Category");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) 
-				this.UserList.add(new User(
-						rs.getInt("idUser"),
-						rs.getString("firstName"),
-						rs.getString("lastName"),
-						rs.getString("userName"),
-						rs.getString("password")
+				this.CategoryList.add(new Category(
+						rs.getInt("idCategory"),
+						rs.getString("catName")
 				));
 			
 			rs.close();
 			ps.close();
-			return UserList;
+			return CategoryList;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
