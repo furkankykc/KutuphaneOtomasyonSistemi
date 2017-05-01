@@ -8,24 +8,24 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-import Entity.Book;
+import Entity.Category;;
 
-public class JdbcBookDao {
+public class JdbsCategoryDao {
 	private DataSource dataSource;
-	Book Book = null;
-	ArrayList<Book> BookList= null;
+	Category Category = null;
+	ArrayList<Category> CategoryList= null;
 
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	public void delete(int IdBook) {
-		String sql  = "DELETE FROM Book " +
-				"WHERE idBook=?";
+	public void delete(int IdCategory) {
+		String sql  = "DELETE FROM Category " +
+				"WHERE idCategory=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, IdBook);
+			ps.setInt(1, IdCategory);
 			ps.executeUpdate();
 			ps.close();
 			
@@ -39,15 +39,15 @@ public class JdbcBookDao {
 					e.printStackTrace();
 				}
 	}
-	public void delete(Book Book) {
-		String sql  = "DELETE FROM Book " +
-				"WHERE idBook=? and bookName=?";
+	public void delete(Category Category) {
+		String sql  = "DELETE FROM Category " +
+				"WHERE idCategory=? and catName=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Book.getIdBook());
-			ps.setString(2,	Book.getBookName());
+			ps.setInt(1, Category.getIdCategory());
+			ps.setString(2,	Category.getCatName());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -61,18 +61,18 @@ public class JdbcBookDao {
 					e.printStackTrace();
 				}
 	}
-	public void insert(Book Book){
+	public void insert(Category Category){
 
-		String sql = "INSERT INTO Book " +
-				"(idBook,bookName) VALUES (?, ?)";
+		String sql = "INSERT INTO Category " +
+				"(idCategory,catName) VALUES (?, ?)";
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, Book.getIdBook());
-			ps.setString(2, Book.getBookName());
+			ps.setInt(1, Category.getIdCategory());
+			ps.setString(2, Category.getCatName());
 			ps.executeUpdate();
 			ps.close();
 
@@ -88,28 +88,28 @@ public class JdbcBookDao {
 		}
 	}
 
-	public Book getBook(int Bookid){
+	public Category getCategory(int idCategory){
 
-		String sql = "SELECT * FROM Book WHERE idBook = ?";
+		String sql = "SELECT * FROM Category WHERE idCategory = ?";
 		
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Bookid);
+			ps.setInt(1, idCategory);
 			
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				this.Book = new Book(
-					rs.getInt("idBook"),
-					rs.getString("bookName"),
-					rs.getInt("bookPage")
+				this.Category = new Category(
+					rs.getInt("idCategory"),
+					rs.getString("catName")
+				
 				);
 			}
 			rs.close();
 			ps.close();
-			return Book;
+			return Category;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -121,24 +121,25 @@ public class JdbcBookDao {
 		}
 	}
 	
-	public ArrayList<Book> getBook(){
-		BookList = new ArrayList<Book>();
+	@SuppressWarnings("unused")
+	public ArrayList<Category> getCategory(){
+		String sql = "SELECT * FROM Category ";
+		CategoryList = new ArrayList<Category>();
 		Connection conn = null;
 		
 		try {
 			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement("select * from Book");
+			PreparedStatement ps = conn.prepareStatement("select * from Category");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) 
-				this.BookList.add(new Book(
-					rs.getInt("idBook"),
-					rs.getString("bookName"),
-					rs.getInt("bookPage")
+				this.CategoryList.add(new Category(
+						rs.getInt("idCategory"),
+						rs.getString("catName")
 				));
 			
 			rs.close();
 			ps.close();
-			return BookList;
+			return CategoryList;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {

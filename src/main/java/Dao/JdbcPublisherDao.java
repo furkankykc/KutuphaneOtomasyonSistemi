@@ -8,24 +8,24 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-import Entity.Book;
+import Entity.Publisher;
 
-public class JdbcBookDao {
+public class JdbcPublisherDao {
 	private DataSource dataSource;
-	Book Book = null;
-	ArrayList<Book> BookList= null;
+	Publisher Publisher = null;
+	ArrayList<Publisher> PublisherList= null;
 
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	public void delete(int IdBook) {
-		String sql  = "DELETE FROM Book " +
-				"WHERE idBook=?";
+	public void delete(String IdPublisher) {
+		String sql  = "DELETE FROM Publisher " +
+				"WHERE id=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, IdBook);
+			ps.setString(1, IdPublisher);
 			ps.executeUpdate();
 			ps.close();
 			
@@ -39,15 +39,15 @@ public class JdbcBookDao {
 					e.printStackTrace();
 				}
 	}
-	public void delete(Book Book) {
-		String sql  = "DELETE FROM Book " +
-				"WHERE idBook=? and bookName=?";
+	public void delete(Publisher Publisher) {
+		String sql  = "DELETE FROM Publisher " +
+				"WHERE idPublisher=? and pubName=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Book.getIdBook());
-			ps.setString(2,	Book.getBookName());
+			ps.setInt(1, Publisher.getIdPublisher());
+			ps.setString(2,	Publisher.getPubName());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -61,18 +61,18 @@ public class JdbcBookDao {
 					e.printStackTrace();
 				}
 	}
-	public void insert(Book Book){
+	public void insert(Publisher Publisher){
 
-		String sql = "INSERT INTO Book " +
-				"(idBook,bookName) VALUES (?, ?)";
+		String sql = "INSERT INTO Publisher " +
+				"(idPublisher,pubName) VALUES (?, ?)";
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, Book.getIdBook());
-			ps.setString(2, Book.getBookName());
+			ps.setInt(1, Publisher.getIdPublisher());
+			ps.setString(2, Publisher.getPubName());
 			ps.executeUpdate();
 			ps.close();
 
@@ -88,28 +88,27 @@ public class JdbcBookDao {
 		}
 	}
 
-	public Book getBook(int Bookid){
+	public Publisher getPublisher(int idPublisher){
 
-		String sql = "SELECT * FROM Book WHERE idBook = ?";
+		String sql = "SELECT * FROM Publisher WHERE idPublisher = ?";
 		
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Bookid);
+			ps.setInt(1, idPublisher);
 			
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				this.Book = new Book(
-					rs.getInt("idBook"),
-					rs.getString("bookName"),
-					rs.getInt("bookPage")
+				this.Publisher = new Publisher(
+					rs.getInt("idPublisher"),
+					rs.getString("pubName")
 				);
 			}
 			rs.close();
 			ps.close();
-			return Book;
+			return Publisher;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -121,24 +120,25 @@ public class JdbcBookDao {
 		}
 	}
 	
-	public ArrayList<Book> getBook(){
-		BookList = new ArrayList<Book>();
+	@SuppressWarnings("unused")
+	public ArrayList<Publisher> getPublisher(){
+		String sql = "SELECT * FROM Publisher ";
+		PublisherList = new ArrayList<Publisher>();
 		Connection conn = null;
 		
 		try {
 			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement("select * from Book");
+			PreparedStatement ps = conn.prepareStatement("select * from Publisher");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) 
-				this.BookList.add(new Book(
-					rs.getInt("idBook"),
-					rs.getString("bookName"),
-					rs.getInt("bookPage")
+				this.PublisherList.add(new Publisher(
+						rs.getInt("idPublisher"),
+						rs.getString("pubName")
 				));
 			
 			rs.close();
 			ps.close();
-			return BookList;
+			return PublisherList;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
