@@ -18,14 +18,14 @@ public class JdbcUserDao {
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	public void delete(String UserId) {
+	public void delete(int IdUser) {
 		String sql  = "DELETE FROM User " +
 				"WHERE idUser=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, UserId);
+			ps.setInt(1, IdUser);
 			ps.executeUpdate();
 			ps.close();
 			

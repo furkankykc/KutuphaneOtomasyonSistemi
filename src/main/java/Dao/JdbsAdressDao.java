@@ -8,24 +8,24 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-import Entity.Book;
+import Entity.Adress;
 
-public class JdbcBookDao {
+public class JdbsAdressDao {
 	private DataSource dataSource;
-	Book Book = null;
-	ArrayList<Book> BookList= null;
+	Adress Adress = null;
+	ArrayList<Adress> AdressList= null;
 
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	public void delete(int IdBook) {
-		String sql  = "DELETE FROM Book " +
-				"WHERE idBook=?";
+	public void delete(int IdAdress) {
+		String sql  = "DELETE FROM Adress " +
+				"WHERE idAdress=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, IdBook);
+			ps.setInt(1, IdAdress);
 			ps.executeUpdate();
 			ps.close();
 			
@@ -39,15 +39,15 @@ public class JdbcBookDao {
 					e.printStackTrace();
 				}
 	}
-	public void delete(Book Book) {
-		String sql  = "DELETE FROM Book " +
-				"WHERE idBook=? and bookName=?";
+	public void delete(Adress Adress) {
+		String sql  = "DELETE FROM Adress " +
+				"WHERE idAdress=? and buildNo=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Book.getIdBook());
-			ps.setString(2,	Book.getBookName());
+			ps.setInt(1, Adress.getIdAdress());
+			ps.setString(2,	Adress.getBuildNo());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -61,18 +61,18 @@ public class JdbcBookDao {
 					e.printStackTrace();
 				}
 	}
-	public void insert(Book Book){
+	public void insert(Adress Adress){
 
-		String sql = "INSERT INTO Book " +
-				"(idBook,bookName) VALUES (?, ?)";
+		String sql = "INSERT INTO Adress " +
+				"(idAdress,buildNo) VALUES (?, ?)";
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, Book.getIdBook());
-			ps.setString(2, Book.getBookName());
+			ps.setInt(1, Adress.getIdAdress());
+			ps.setString(2, Adress.getBuildNo());
 			ps.executeUpdate();
 			ps.close();
 
@@ -88,28 +88,30 @@ public class JdbcBookDao {
 		}
 	}
 
-	public Book getBook(int Bookid){
+	public Adress getAdress(int idAdress){
 
-		String sql = "SELECT * FROM Book WHERE idBook = ?";
+		String sql = "SELECT * FROM Adress WHERE idAdress = ?";
 		
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Bookid);
+			ps.setInt(1, idAdress);
 			
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				this.Book = new Book(
-					rs.getInt("idBook"),
-					rs.getString("bookName"),
-					rs.getInt("bookPage")
+				this.Adress = new Adress(
+					rs.getInt("idAdress"),
+					rs.getString("street"),
+					rs.getString("road"),
+					rs.getString("buildNo")
+					
 				);
 			}
 			rs.close();
 			ps.close();
-			return Book;
+			return Adress;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -121,24 +123,27 @@ public class JdbcBookDao {
 		}
 	}
 	
-	public ArrayList<Book> getBook(){
-		BookList = new ArrayList<Book>();
+	@SuppressWarnings("unused")
+	public ArrayList<Adress> getAdress(){
+		String sql = "SELECT * FROM Adress ";
+		AdressList = new ArrayList<Adress>();
 		Connection conn = null;
 		
 		try {
 			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement("select * from Book");
+			PreparedStatement ps = conn.prepareStatement("select * from Adress");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) 
-				this.BookList.add(new Book(
-					rs.getInt("idBook"),
-					rs.getString("bookName"),
-					rs.getInt("bookPage")
+				this.AdressList.add(new Adress(
+						rs.getInt("idAdress"),
+						rs.getString("street"),
+						rs.getString("road"),
+						rs.getString("buildNo")
 				));
 			
 			rs.close();
 			ps.close();
-			return BookList;
+			return AdressList;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
