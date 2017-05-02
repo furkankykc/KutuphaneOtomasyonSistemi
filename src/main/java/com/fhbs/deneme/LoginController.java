@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import Dao.JdbcKitapDao;
-import Dao.JdbcLoginDao;
+import Dao.JdbcUserDao;
 import Entity.User;
  
 @Controller
@@ -24,7 +23,7 @@ public class LoginController {
     public String submit(Model model, @ModelAttribute("loginBean") User loginBean) {
     	ApplicationContext context =
 	    		new ClassPathXmlApplicationContext("Spring-Module.xml");
-    	JdbcLoginDao loginDao = (JdbcLoginDao) context.getBean("LoginDao");
+    	JdbcUserDao loginDao = (JdbcUserDao) context.getBean("UserDao");
     	User girdi=loginDao.getUser(loginBean.getUserName());
     	if (girdi!= null && loginBean != null && loginBean.getUserName() != null & loginBean.getPassword() != null) {
 	    	if(girdi.getPassword().equals(loginBean.getPassword())){

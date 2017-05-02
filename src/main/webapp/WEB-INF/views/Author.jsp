@@ -4,41 +4,42 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Admin Paneli </title>
+<title>Insert title here</title>
 </head>
-<a> Kütüphane Otomasyon Sistemi Admin Paneli</a>
-
-<br>
-</br>
 <body> 
 <!--  th:action="@{/greeting}" th:object="${greeting}"  -->
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<form:form name="gettingtext" action="admin" method="POST">
+<form:form name="gettingtext" action="" method="POST">
 <ul>
-    <li><label>Kitap Adı:</label> <input type='text' name='bookName' />
-    <label>Kitap Yazarı:</label> <input type='text' name='bookPage' />
+    <li><label>First Name</label> <input type='text' name='firstName' />
+    <label>Last Name</label> <input type='text' name='lastName' />
+    <label>address</label> <input type='int' name='address_id' />
+    
     <label>&nbsp;</label> <input name="add" action="add"  type="submit" value="Ekle" class="btn">
-    <label>&nbsp;</label> <input name="del" action="del" type="submit" value="Sil" class="btn"></li>
-</ul>
+    </ul>
 </form:form><dl>
 
-<form:form method="POST" action="admin">
-  <table border="0">
+<form:form method="POST" action="Book">
+  <table border="1">
         <tr>
-        <td><input type="checkbox" class="chkCheckBoxId" value="asd" name = "kitapId"/></td>
-         <td> ADI</td>
-            <td>YAZARI</td>
+         <td> AUTHOR</td>
+         	<td>ID</td>
+            <td>FIRST NAME</td>
+            <td>LAST NAME</td>
+            <td>ADDRESS</td>
+
         </tr>
         
         
-<c:forEach items="${kitaplar}" var="kitap">
+<c:forEach items="${author}" var="auth">
 			<tr>
-			<td><input type="checkbox" class="chkCheckBoxId" value="${kitap.getBookName()}" name = "kitapId"/></td>
-			
-			<td>${kitap.getBookName()} </td><td>${kitap.getBookPage()}</td>
+			<td>${auth.getId()} </td>
+			<td>${auth.getFirstName()}</td>
+			<td>${auth.getLastName()}</td>
+			<td>${auth.getaddress_id()}</td>
 			</tr>
 	</c:forEach>
 	<label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "remove" class = "btn">

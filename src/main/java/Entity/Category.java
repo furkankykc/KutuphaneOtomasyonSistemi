@@ -2,33 +2,33 @@ package Entity;
 
 public class Category {
 	
-	int idCategory;
-	String catName;
+	int id;
+	String name;
 	
-	public Category(int idCategory ,String catName){
-		this.idCategory=idCategory;
-		this.catName=catName;
+	public Category(int id ,String name){
+		this.id=id;
+		this.name=name;
 	}
 	
 	public Category(){
-		this.idCategory = 0;
-		this.catName = null;
+		this.id = 0;
+		this.name = null;
 	}
-	public int getIdCategory() {
-		return idCategory;
+	public int getId() {
+		return id;
 	}
-	public void setIdCategory(int idCategory) {
-		this.idCategory = idCategory;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public String getCatName() {
-		return catName;
+	public String getName() {
+		return name;
 	}
-	public void setCatName(String catName) {
-		this.catName = catName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	@Override
 	public String toString() {
-		return "Category [idCategory=" + idCategory + ", catName=" + catName + "]";
+		return "Category [id=" + id + ", name=" + name + "]";
 	}
 
 }

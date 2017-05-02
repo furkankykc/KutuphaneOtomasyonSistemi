@@ -8,24 +8,24 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-import Entity.User;;
+import Entity.Address;
 
-public class JdbcUserDao {
+public class JdbcAddressDao {
 	private DataSource dataSource;
-	User User = null;
-	ArrayList<User> UserList= null;
+	Address Address = null;
+	ArrayList<Address> AddressList= null;
 
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	public void delete(int IdUser) {
-		String sql  = "DELETE FROM User " +
-				"WHERE idUser=?";
+	public void delete(String id) {
+		String sql  = "DELETE FROM Address " +
+				"WHERE id=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, IdUser);
+			ps.setString(1, id);
 			ps.executeUpdate();
 			ps.close();
 			
@@ -39,15 +39,15 @@ public class JdbcUserDao {
 					e.printStackTrace();
 				}
 	}
-	public void delete(User User) {
-		String sql  = "DELETE FROM User " +
-				"WHERE idUser=? and =userName?";
+	public void delete(Address Address) {
+		String sql  = "DELETE FROM Address " +
+				"WHERE id=? and buildNo=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, User.getIdUser());
-			ps.setString(2,	User.getUserName());
+			ps.setInt(1, Address.getId());
+			ps.setString(2,	Address.getBuildNo());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -61,18 +61,20 @@ public class JdbcUserDao {
 					e.printStackTrace();
 				}
 	}
-	public void insert(User User){
+	public void insert(Address Address){
 
-		String sql = "INSERT INTO User " +
-				"(userName,password) VALUES (?, ?)";
+		String sql = "INSERT INTO Address " +
+				"(name,street,road,buildNo) VALUES (?, ?, ?, ?)";
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setString(1, User.getUserName());
-			ps.setString(2, User.getPassword());
+			ps.setString(1, Address.getName());
+			ps.setString(2, Address.getStreet());
+			ps.setString(3, Address.getRoad());
+			ps.setString(4, Address.getBuildNo());
 			ps.executeUpdate();
 			ps.close();
 
@@ -85,67 +87,33 @@ public class JdbcUserDao {
 					conn.close();
 				} catch (SQLException e) {}
 			}
-		}
+		}	
 	}
 
-	public User getUser(int idUSer){
+	public Address getAddress(int id){
 
-		String sql = "SELECT * FROM User WHERE idUser = ?";
+		String sql = "SELECT * FROM Address WHERE id = ?";
 		
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, idUSer);
+			ps.setInt(1, id);
 			
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				this.User = new User(
-					rs.getInt("idUser"),
-					rs.getString("firstName"),
-					rs.getString("lastName"),
-					rs.getString("userName"),
-					rs.getString("password")
+				this.Address = new Address(
+						rs.getInt("id"),
+						rs.getString("name"),
+						rs.getString("street"),
+						rs.getString("road"),
+						rs.getString("buildNo")
 				);
 			}
 			rs.close();
 			ps.close();
-			return User;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			if (conn != null) {
-				try {
-				conn.close();
-				} catch (SQLException e) {}
-			}
-		}
-	}
-	public User getUser(String userName){
-
-		String sql = "SELECT * FROM User WHERE userName = ?";
-		
-		Connection conn = null;
-
-		try {
-			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, userName);
-			
-			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
-				this.User = new User(
-					rs.getInt("idUser"),
-					rs.getString("firstName"),
-					rs.getString("lastName"),
-					rs.getString("userName"),
-					rs.getString("password")
-				);
-			}
-			rs.close();
-			ps.close();
-			return User;
+			return Address;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -157,26 +125,28 @@ public class JdbcUserDao {
 		}
 	}
 	
-	public ArrayList<User> getUser(){
-		UserList = new ArrayList<User>();
+	@SuppressWarnings("unused")
+	public ArrayList<Address> getAddress(){
+		String sql = "SELECT * FROM Address ";
+		AddressList = new ArrayList<Address>();
 		Connection conn = null;
 		
 		try {
 			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement("select * from User");
+			PreparedStatement ps = conn.prepareStatement("select * from Address");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) 
-				this.UserList.add(new User(
-						rs.getInt("idUser"),
-						rs.getString("firstName"),
-						rs.getString("lastName"),
-						rs.getString("userName"),
-						rs.getString("password")
+				this.AddressList.add(new Address(
+						rs.getInt("id"),
+						rs.getString("name"),
+						rs.getString("street"),
+						rs.getString("road"),
+						rs.getString("buildNo")
 				));
 			
 			rs.close();
 			ps.close();
-			return UserList;
+			return AddressList;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {

@@ -8,24 +8,24 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-import Entity.User;;
+import Entity.Publisher;
 
-public class JdbcUserDao {
+public class JdbcPublisherDao {
 	private DataSource dataSource;
-	User User = null;
-	ArrayList<User> UserList= null;
+	Publisher Publisher = null;
+	ArrayList<Publisher> PublisherList= null;
 
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	public void delete(int IdUser) {
-		String sql  = "DELETE FROM User " +
-				"WHERE idUser=?";
+	public void delete(String IdPublisher) {
+		String sql  = "DELETE FROM Publisher " +
+				"WHERE id=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, IdUser);
+			ps.setString(1, IdPublisher);
 			ps.executeUpdate();
 			ps.close();
 			
@@ -39,15 +39,15 @@ public class JdbcUserDao {
 					e.printStackTrace();
 				}
 	}
-	public void delete(User User) {
-		String sql  = "DELETE FROM User " +
-				"WHERE idUser=? and =userName?";
+	public void delete(Publisher Publisher) {
+		String sql  = "DELETE FROM Publisher " +
+				"WHERE idPublisher=? and pubName=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, User.getIdUser());
-			ps.setString(2,	User.getUserName());
+			ps.setInt(1, Publisher.getIdPublisher());
+			ps.setString(2,	Publisher.getPubName());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -61,18 +61,18 @@ public class JdbcUserDao {
 					e.printStackTrace();
 				}
 	}
-	public void insert(User User){
+	public void insert(Publisher Publisher){
 
-		String sql = "INSERT INTO User " +
-				"(userName,password) VALUES (?, ?)";
+		String sql = "INSERT INTO Publisher " +
+				"(idPublisher,pubName) VALUES (?, ?)";
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setString(1, User.getUserName());
-			ps.setString(2, User.getPassword());
+			ps.setInt(1, Publisher.getIdPublisher());
+			ps.setString(2, Publisher.getPubName());
 			ps.executeUpdate();
 			ps.close();
 
@@ -88,64 +88,27 @@ public class JdbcUserDao {
 		}
 	}
 
-	public User getUser(int idUSer){
+	public Publisher getPublisher(int idPublisher){
 
-		String sql = "SELECT * FROM User WHERE idUser = ?";
+		String sql = "SELECT * FROM Publisher WHERE idPublisher = ?";
 		
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, idUSer);
+			ps.setInt(1, idPublisher);
 			
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				this.User = new User(
-					rs.getInt("idUser"),
-					rs.getString("firstName"),
-					rs.getString("lastName"),
-					rs.getString("userName"),
-					rs.getString("password")
+				this.Publisher = new Publisher(
+					rs.getInt("idPublisher"),
+					rs.getString("pubName")
 				);
 			}
 			rs.close();
 			ps.close();
-			return User;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			if (conn != null) {
-				try {
-				conn.close();
-				} catch (SQLException e) {}
-			}
-		}
-	}
-	public User getUser(String userName){
-
-		String sql = "SELECT * FROM User WHERE userName = ?";
-		
-		Connection conn = null;
-
-		try {
-			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, userName);
-			
-			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
-				this.User = new User(
-					rs.getInt("idUser"),
-					rs.getString("firstName"),
-					rs.getString("lastName"),
-					rs.getString("userName"),
-					rs.getString("password")
-				);
-			}
-			rs.close();
-			ps.close();
-			return User;
+			return Publisher;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -157,26 +120,25 @@ public class JdbcUserDao {
 		}
 	}
 	
-	public ArrayList<User> getUser(){
-		UserList = new ArrayList<User>();
+	@SuppressWarnings("unused")
+	public ArrayList<Publisher> getPublisher(){
+		String sql = "SELECT * FROM Publisher ";
+		PublisherList = new ArrayList<Publisher>();
 		Connection conn = null;
 		
 		try {
 			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement("select * from User");
+			PreparedStatement ps = conn.prepareStatement("select * from Publisher");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) 
-				this.UserList.add(new User(
-						rs.getInt("idUser"),
-						rs.getString("firstName"),
-						rs.getString("lastName"),
-						rs.getString("userName"),
-						rs.getString("password")
+				this.PublisherList.add(new Publisher(
+						rs.getInt("idPublisher"),
+						rs.getString("pubName")
 				));
 			
 			rs.close();
 			ps.close();
-			return UserList;
+			return PublisherList;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {

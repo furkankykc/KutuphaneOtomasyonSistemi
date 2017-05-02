@@ -18,14 +18,14 @@ public class JdbcAuthorDao {
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	public void delete(String AuthorId) {
+	public void delete(String IdAuthor) {
 		String sql  = "DELETE FROM Author " +
 				"WHERE idAuthor=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, AuthorId);
+			ps.setString(1, IdAuthor);
 			ps.executeUpdate();
 			ps.close();
 			
@@ -46,7 +46,7 @@ public class JdbcAuthorDao {
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Author.getIdAuthor());
+			ps.setInt(1, Author.getId());
 			ps.setString(2,	Author.getFirstName());
 			ps.executeUpdate();
 			ps.close();
@@ -64,15 +64,17 @@ public class JdbcAuthorDao {
 	public void insert(Author Author){
 
 		String sql = "INSERT INTO Author " +
-				"(idAuthor,firstName) VALUES (?, ?)";
+				"(id,firstName,lastName,address_id) VALUES (?, ?, ?, ?)";
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, Author.getIdAuthor());
+			ps.setInt(1, Author.getId());
 			ps.setString(2, Author.getFirstName());
+			ps.setString(3, Author.getLastName());
+			ps.setInt(4, Author.getaddress_id());
 			ps.executeUpdate();
 			ps.close();
 
@@ -88,23 +90,24 @@ public class JdbcAuthorDao {
 		}
 	}
 	public void update(Author Author){}
-	public Author getAuthor(int Authorid){
+	public Author getAuthor(String Authorid){
 
-		String sql = "SELECT * FROM Author WHERE idAuthor = ?";
+		String sql = "SELECT * FROM Author WHERE id = ?";
 		
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Authorid);
+			ps.setString(1, Authorid);
 			
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				this.Author = new Author(
-					rs.getInt("idAuthor"),
+					rs.getInt("id"),
 					rs.getString("firstName"),
-					rs.getString("lastName")
+					rs.getString("lastName"),
+					rs.getInt("address_id")
 				);
 			}
 			rs.close();
@@ -120,7 +123,6 @@ public class JdbcAuthorDao {
 			}
 		}
 	}
-	
 	public ArrayList<Author> getAuthor(){
 		AuthorList = new ArrayList<Author>();
 		Connection conn = null;
@@ -131,9 +133,10 @@ public class JdbcAuthorDao {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) 
 				this.AuthorList.add(new Author(
-					rs.getInt("idAuthor"),
-					rs.getString("firstName"),
-					rs.getString("lastName")
+						rs.getInt("id"),
+						rs.getString("firstName"),
+						rs.getString("lastName"),
+						rs.getInt("address_id")
 				));
 			
 			rs.close();

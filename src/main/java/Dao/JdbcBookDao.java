@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 import Entity.Book;
+import Entity.kitap;
 
 public class JdbcBookDao {
 	private DataSource dataSource;
@@ -18,14 +19,14 @@ public class JdbcBookDao {
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	public void delete(String BookId) {
+	public void delete(String id) {
 		String sql  = "DELETE FROM Book " +
-				"WHERE idBook=?";
+				"WHERE id=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, BookId);
+			ps.setString(1, id);
 			ps.executeUpdate();
 			ps.close();
 			
@@ -41,12 +42,12 @@ public class JdbcBookDao {
 	}
 	public void delete(Book Book) {
 		String sql  = "DELETE FROM Book " +
-				"WHERE idBook=? and bookName=?";
+				"WHERE id=? and bookName=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Book.getIdBook());
+			ps.setInt(1, Book.getId());
 			ps.setString(2,	Book.getBookName());
 			ps.executeUpdate();
 			ps.close();
@@ -64,15 +65,21 @@ public class JdbcBookDao {
 	public void insert(Book Book){
 
 		String sql = "INSERT INTO Book " +
-				"(idBook,bookName) VALUES (?, ?)";
+				"(bookName,bookPage,author_id,category_id,publisher_id,printingDate) VALUES (?, ?, ?, ?, ?, ?)";
 		Connection conn = null;
-
+	//| id | bookName       | bookPage | author_id | category_id | publisher_id | 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, Book.getIdBook());
-			ps.setString(2, Book.getBookName());
+			ps.setString(1, Book.getBookName());
+			ps.setInt(2, Book.getBookPage());
+			ps.setInt(3, Book.getAuthor_id());
+			ps.setInt(4, Book.getCategory_id());
+			ps.setInt(5, Book.getPublisher_id());
+			ps.setDate(6, Book.getPrintingDate());
+
+			
 			ps.executeUpdate();
 			ps.close();
 
@@ -90,7 +97,7 @@ public class JdbcBookDao {
 
 	public Book getBook(int Bookid){
 
-		String sql = "SELECT * FROM Book WHERE idBook = ?";
+		String sql = "SELECT * FROM Book WHERE id = ?";
 		
 		Connection conn = null;
 
@@ -102,9 +109,13 @@ public class JdbcBookDao {
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				this.Book = new Book(
-					rs.getInt("idBook"),
-					rs.getString("bookName"),
-					rs.getInt("bookPage")
+						rs.getInt("id"),
+						rs.getString("bookName"),
+						rs.getInt("bookPage"),
+						rs.getInt("author_id"),
+						rs.getInt("category_id"),
+						rs.getInt("publisher_id"),
+						rs.getDate("printingDate")
 				);
 			}
 			rs.close();
@@ -121,21 +132,31 @@ public class JdbcBookDao {
 		}
 	}
 	
+	
 	public ArrayList<Book> getBook(){
+
+		String sql = "SELECT * FROM Book";
 		BookList = new ArrayList<Book>();
 		Connection conn = null;
-		
+
 		try {
 			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement("select * from Book");
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) 
-				this.BookList.add(new Book(
-					rs.getInt("idBook"),
-					rs.getString("bookName"),
-					rs.getInt("bookPage")
-				));
+			PreparedStatement ps = conn.prepareStatement(sql);
 			
+			
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				this.BookList.add( new Book(
+						rs.getInt("id"),
+						rs.getString("bookName"),
+						rs.getInt("bookPage"),
+						rs.getInt("author_id"),
+						rs.getInt("category_id"),
+						rs.getInt("publisher_id"),
+						rs.getDate("printingDate")
+						
+				));
+			}
 			rs.close();
 			ps.close();
 			return BookList;
@@ -148,7 +169,6 @@ public class JdbcBookDao {
 				} catch (SQLException e) {}
 			}
 		}
-		
 	}
 
 }

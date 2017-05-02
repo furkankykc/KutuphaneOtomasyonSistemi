@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import Dao.JdbcBookDao;
 import Dao.JdbcKitapDao;
 import Dao.JdbcLoginDao;
+import Dao.JdbcUserDao;
+import Entity.Book;
 import Entity.User;
-import Entity.kitap;
 
+@RequestMapping(value = "/admin")
 @Controller
 public class AdminController {
 	    @RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -27,26 +30,29 @@ public class AdminController {
 	    	ApplicationContext context =
 	    			 
 	    			new ClassPathXmlApplicationContext("Spring-Module.xml");
-	    		    	JdbcKitapDao kitapDao = (JdbcKitapDao) context.getBean("kitapDao");
+	    		    	JdbcBookDao kitapDao = (JdbcBookDao) context.getBean("kitapDao");
 	    		    	
-	    						model.addAttribute("kitaplar",  kitapDao.getKitap());
+	    		//JdbcKitapDao kitapDao2 = (JdbcKitapDao) context.getBean("kitapDao");
+	    		    	JdbcUserDao Login  = (JdbcUserDao) context.getBean("UserDao");
+	    						model.addAttribute("kitaplar",kitapDao.getBook());
 	    							    	
 	
-	        return "admin";
+	        return "admin";	
 	    }
 
 	   
 	    
 	    
-	    @RequestMapping(params="add",method = RequestMethod.POST)
-	    public String add(Model model, @ModelAttribute("kitapBean") kitap kitapBean,@RequestParam String add) {
+	    @RequestMapping(value = "/admin",params="add",method = RequestMethod.POST)
+	    public String add(Model model, @ModelAttribute("kitapBean") Book kitapBean,@RequestParam String add) {
 	    	ApplicationContext context =
 		    		new ClassPathXmlApplicationContext("Spring-Module.xml");
-	    	JdbcKitapDao kitapDao = (JdbcKitapDao) context.getBean("kitapDao");
+	    	JdbcBookDao kitapDao = (JdbcBookDao) context.getBean("kitapDao");
+	    	
 	    	if(kitapBean!=null){
 	    	kitapDao.insert(kitapBean);
 	    		    	
-	    						model.addAttribute("kitaplar",  kitapDao.getKitap());
+	    						model.addAttribute("kitaplar",  kitapDao.getBook());
 					    	
 				return "admin";
 	    	}else{
@@ -55,10 +61,10 @@ public class AdminController {
 	}
 	    
 	    @RequestMapping(params = "del",method = RequestMethod.POST)
-	    public String delete(Model model, @ModelAttribute("kitapBean") kitap kitapBean,@RequestParam String del) {
+	    public String delete(Model model, @ModelAttribute("kitapBean") Book kitapBean,@RequestParam String del) {
 	    	ApplicationContext context =
 		    		new ClassPathXmlApplicationContext("Spring-Module.xml");
-	    	JdbcKitapDao kitapDao = (JdbcKitapDao) context.getBean("kitapDao");
+	    	JdbcBookDao kitapDao = (JdbcBookDao) context.getBean("kitapDao");
 	    	if(kitapBean!=null){
 	    	kitapDao.delete(kitapBean);
 	    	return "admin";
@@ -73,7 +79,7 @@ public class AdminController {
 	    public String remove(HttpServletRequest request,ModelMap modelMap,@RequestParam String remove) {
 	    	ApplicationContext context =
 		    		new ClassPathXmlApplicationContext("Spring-Module.xml");
-	    	JdbcKitapDao kitapDao = (JdbcKitapDao) context.getBean("kitapDao");
+	    	JdbcBookDao kitapDao = (JdbcBookDao) context.getBean("kitapDao");
 	    	try{
 	    	if(request.getParameterValues("kitapId")!=null)
 	    	for(String kitapId : request.getParameterValues("kitapId")){
@@ -85,7 +91,7 @@ public class AdminController {
 	    	}catch(Exception e){
 	    		modelMap.put("error", e);
 	    	}
-	    	modelMap.addAttribute("kitaplar",kitapDao.getKitap());
+	    	modelMap.addAttribute("kitaplar",kitapDao.getBook());
 	    		return "admin";
 	    	
 	}

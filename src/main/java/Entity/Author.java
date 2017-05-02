@@ -1,30 +1,40 @@
 package Entity;
 
 public class Author {
-	int idAuthor;
-	String firstName;
-	String lastName;
-	public Author(int idAuthor ,String firstName,String lastName){
-		this.idAuthor=idAuthor;
-		this.firstName=firstName;
-		this.lastName=lastName;
-		
-	}
-	public Author(String firstName,String lastName){
-		this.idAuthor=0;
-		this.firstName=firstName;
-		this.lastName=lastName;
-	}
+	private int id;
+	private String firstName;
+	private String lastName;
+	private int address_id;
+	
 	public Author(){
-		this.idAuthor=0;
+		this.id = 0;
 		this.firstName=null;
 		this.lastName=null;
+		this.address_id=0;
 	}
-	public int getIdAuthor() {
-		return idAuthor;
+	public Author(int id,String firstName,String lastname,int address_id){
+		this.id = id;
+		this.firstName=firstName;
+		this.lastName=lastname;
+		this.address_id=address_id;
 	}
-	public void setIdAuthor(int idAuthor) {
-		this.idAuthor = idAuthor;
+	public Author(String firstName,String lastname,int address_id){
+		this.id = 0;
+		this.firstName=firstName;
+		this.lastName=lastname;
+		this.address_id=address_id;
+	}	
+	public Author(String firstName,String lastname){
+		this.id = id;
+		this.firstName=firstName;
+		this.lastName=lastname;
+		this.address_id=0;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -38,9 +48,13 @@ public class Author {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	@Override
-	public String toString() {
-		return "Author [idAuthor=" + idAuthor + ", firstName=" + firstName + ", lastName=" + lastName + "]";
+	public int getaddress_id() {
+		return address_id;
 	}
-
+	public void setaddress_id(int address_id) {
+		this.address_id = address_id;
+	}
+	
+	
+	
 }
