@@ -6,5 +6,13 @@
 	<import resource="Spring-Datasource.xml" />
 	<import resource="Spring-Kitap.xml" />
 	<import resource="Spring-Login.xml"/>
-
+	<bean id="authDao" class="Dao.JdbcAuthorDao">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="categoryDao" class="Dao.JdbcCategoryDao">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="addressDao" class="Dao.JdbcAddressDao">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 </beans>

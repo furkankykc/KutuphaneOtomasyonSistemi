@@ -8,24 +8,24 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-import Entity.Adress;
+import Entity.Category;;
 
-public class JdbsAdressDao {
+public class JdbcCategoryDao {
 	private DataSource dataSource;
-	Adress Adress = null;
-	ArrayList<Adress> AdressList= null;
+	Category Category = null;
+	ArrayList<Category> CategoryList= null;
 
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	public void delete(int IdAdress) {
-		String sql  = "DELETE FROM Adress " +
-				"WHERE idAdress=?";
+	public void delete(String id) {
+		String sql  = "DELETE FROM Category " +
+				"WHERE id=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, IdAdress);
+			ps.setString(1, id);
 			ps.executeUpdate();
 			ps.close();
 			
@@ -39,15 +39,15 @@ public class JdbsAdressDao {
 					e.printStackTrace();
 				}
 	}
-	public void delete(Adress Adress) {
-		String sql  = "DELETE FROM Adress " +
-				"WHERE idAdress=? and buildNo=?";
+	public void delete(Category Category) {
+		String sql  = "DELETE FROM Category " +
+				"WHERE id=? and catName=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Adress.getIdAdress());
-			ps.setString(2,	Adress.getBuildNo());
+			ps.setInt(1, Category.getId());
+			ps.setString(2,	Category.getName());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -61,18 +61,18 @@ public class JdbsAdressDao {
 					e.printStackTrace();
 				}
 	}
-	public void insert(Adress Adress){
+	public void insert(Category Category){
 
-		String sql = "INSERT INTO Adress " +
-				"(idAdress,buildNo) VALUES (?, ?)";
+		String sql = "INSERT INTO Category " +
+				"(id,catName) VALUES (?, ?)";
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, Adress.getIdAdress());
-			ps.setString(2, Adress.getBuildNo());
+			ps.setInt(1, Category.getId());
+			ps.setString(2, Category.getName());
 			ps.executeUpdate();
 			ps.close();
 
@@ -88,30 +88,28 @@ public class JdbsAdressDao {
 		}
 	}
 
-	public Adress getAdress(int idAdress){
+	public Category getCategory(int id){
 
-		String sql = "SELECT * FROM Adress WHERE idAdress = ?";
+		String sql = "SELECT * FROM Category WHERE id = ?";
 		
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, idAdress);
+			ps.setInt(1, id);
 			
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				this.Adress = new Adress(
-					rs.getInt("idAdress"),
-					rs.getString("street"),
-					rs.getString("road"),
-					rs.getString("buildNo")
-					
+				this.Category = new Category(
+					rs.getInt("id"),
+					rs.getString("catName")
+				
 				);
 			}
 			rs.close();
 			ps.close();
-			return Adress;
+			return Category;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -124,26 +122,24 @@ public class JdbsAdressDao {
 	}
 	
 	@SuppressWarnings("unused")
-	public ArrayList<Adress> getAdress(){
-		String sql = "SELECT * FROM Adress ";
-		AdressList = new ArrayList<Adress>();
+	public ArrayList<Category> getCategory(){
+		String sql = "SELECT * FROM Category ";
+		CategoryList = new ArrayList<Category>();
 		Connection conn = null;
 		
 		try {
 			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement("select * from Adress");
+			PreparedStatement ps = conn.prepareStatement("select * from Category");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) 
-				this.AdressList.add(new Adress(
-						rs.getInt("idAdress"),
-						rs.getString("street"),
-						rs.getString("road"),
-						rs.getString("buildNo")
+				this.CategoryList.add(new Category(
+						rs.getInt("id"),
+						rs.getString("catName")
 				));
 			
 			rs.close();
 			ps.close();
-			return AdressList;
+			return CategoryList;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {

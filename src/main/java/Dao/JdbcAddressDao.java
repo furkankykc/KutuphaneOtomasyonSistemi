@@ -8,24 +8,24 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-import Entity.Category;;
+import Entity.Address;
 
-public class JdbsCategoryDao {
+public class JdbcAddressDao {
 	private DataSource dataSource;
-	Category Category = null;
-	ArrayList<Category> CategoryList= null;
+	Address Address = null;
+	ArrayList<Address> AddressList= null;
 
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	public void delete(int IdCategory) {
-		String sql  = "DELETE FROM Category " +
-				"WHERE idCategory=?";
+	public void delete(String id) {
+		String sql  = "DELETE FROM Address " +
+				"WHERE id=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, IdCategory);
+			ps.setString(1, id);
 			ps.executeUpdate();
 			ps.close();
 			
@@ -39,15 +39,15 @@ public class JdbsCategoryDao {
 					e.printStackTrace();
 				}
 	}
-	public void delete(Category Category) {
-		String sql  = "DELETE FROM Category " +
-				"WHERE idCategory=? and catName=?";
+	public void delete(Address Address) {
+		String sql  = "DELETE FROM Address " +
+				"WHERE id=? and buildNo=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Category.getIdCategory());
-			ps.setString(2,	Category.getCatName());
+			ps.setInt(1, Address.getId());
+			ps.setString(2,	Address.getBuildNo());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -61,18 +61,20 @@ public class JdbsCategoryDao {
 					e.printStackTrace();
 				}
 	}
-	public void insert(Category Category){
+	public void insert(Address Address){
 
-		String sql = "INSERT INTO Category " +
-				"(idCategory,catName) VALUES (?, ?)";
+		String sql = "INSERT INTO Address " +
+				"(name,street,road,buildNo) VALUES (?, ?, ?, ?)";
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, Category.getIdCategory());
-			ps.setString(2, Category.getCatName());
+			ps.setString(1, Address.getName());
+			ps.setString(2, Address.getStreet());
+			ps.setString(3, Address.getRoad());
+			ps.setString(4, Address.getBuildNo());
 			ps.executeUpdate();
 			ps.close();
 
@@ -85,31 +87,33 @@ public class JdbsCategoryDao {
 					conn.close();
 				} catch (SQLException e) {}
 			}
-		}
+		}	
 	}
 
-	public Category getCategory(int idCategory){
+	public Address getAddress(int id){
 
-		String sql = "SELECT * FROM Category WHERE idCategory = ?";
+		String sql = "SELECT * FROM Address WHERE id = ?";
 		
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, idCategory);
+			ps.setInt(1, id);
 			
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				this.Category = new Category(
-					rs.getInt("idCategory"),
-					rs.getString("catName")
-				
+				this.Address = new Address(
+						rs.getInt("id"),
+						rs.getString("name"),
+						rs.getString("street"),
+						rs.getString("road"),
+						rs.getString("buildNo")
 				);
 			}
 			rs.close();
 			ps.close();
-			return Category;
+			return Address;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -122,24 +126,27 @@ public class JdbsCategoryDao {
 	}
 	
 	@SuppressWarnings("unused")
-	public ArrayList<Category> getCategory(){
-		String sql = "SELECT * FROM Category ";
-		CategoryList = new ArrayList<Category>();
+	public ArrayList<Address> getAddress(){
+		String sql = "SELECT * FROM Address ";
+		AddressList = new ArrayList<Address>();
 		Connection conn = null;
 		
 		try {
 			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement("select * from Category");
+			PreparedStatement ps = conn.prepareStatement("select * from Address");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) 
-				this.CategoryList.add(new Category(
-						rs.getInt("idCategory"),
-						rs.getString("catName")
+				this.AddressList.add(new Address(
+						rs.getInt("id"),
+						rs.getString("name"),
+						rs.getString("street"),
+						rs.getString("road"),
+						rs.getString("buildNo")
 				));
 			
 			rs.close();
 			ps.close();
-			return CategoryList;
+			return AddressList;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {

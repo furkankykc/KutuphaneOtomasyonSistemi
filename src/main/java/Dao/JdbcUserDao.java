@@ -64,15 +64,15 @@ public class JdbcUserDao {
 	public void insert(User User){
 
 		String sql = "INSERT INTO User " +
-				"(idUser,userName) VALUES (?, ?)";
+				"(userName,password) VALUES (?, ?)";
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, User.getIdUser());
-			ps.setString(2, User.getUserName());
+			ps.setString(1, User.getUserName());
+			ps.setString(2, User.getPassword());
 			ps.executeUpdate();
 			ps.close();
 

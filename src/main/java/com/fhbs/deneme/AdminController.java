@@ -15,8 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import Dao.JdbcBookDao;
+import Dao.JdbcKitapDao;
+import Dao.JdbcLoginDao;
+import Dao.JdbcUserDao;
 import Entity.Book;
+import Entity.User;
 
+@RequestMapping(value = "/admin")
 @Controller
 public class AdminController {
 	    @RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -27,20 +32,23 @@ public class AdminController {
 	    			new ClassPathXmlApplicationContext("Spring-Module.xml");
 	    		    	JdbcBookDao kitapDao = (JdbcBookDao) context.getBean("kitapDao");
 	    		    	
-	    						model.addAttribute("kitaplar",  kitapDao.getBook());
+	    		//JdbcKitapDao kitapDao2 = (JdbcKitapDao) context.getBean("kitapDao");
+	    		    	JdbcUserDao Login  = (JdbcUserDao) context.getBean("UserDao");
+	    						model.addAttribute("kitaplar",kitapDao.getBook());
 	    							    	
 	
-	        return "admin";
+	        return "admin";	
 	    }
 
 	   
 	    
 	    
-	    @RequestMapping(params="add",method = RequestMethod.POST)
+	    @RequestMapping(value = "/admin",params="add",method = RequestMethod.POST)
 	    public String add(Model model, @ModelAttribute("kitapBean") Book kitapBean,@RequestParam String add) {
 	    	ApplicationContext context =
 		    		new ClassPathXmlApplicationContext("Spring-Module.xml");
 	    	JdbcBookDao kitapDao = (JdbcBookDao) context.getBean("kitapDao");
+	    	
 	    	if(kitapBean!=null){
 	    	kitapDao.insert(kitapBean);
 	    		    	
