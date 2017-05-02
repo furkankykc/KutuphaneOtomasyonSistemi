@@ -1,37 +1,47 @@
 package Entity;
 
 public class Publisher {
-	int idPublisher;
-	String pubName;
-	public Publisher(int idPublisher ,String pubName){
-		this.idPublisher = idPublisher;
-		this.pubName = pubName;
+	int id;
+	String name;
+	int address_id;
+	public Publisher(int id ,String name,int addres_id){
+		this.id = id;
+		this.name = name;
+		this.address_id=addres_id;
 	
 		
 	}
-	public Publisher(String firstName,String lastName, String pubName){
-		this.idPublisher = 0;
-		this.pubName = pubName;
+	public Publisher(String name,int addres_id){
+		this.id = 0;
+		this.name = name;
+		this.address_id = address_id;
 	}
 	public Publisher(){
-		this.idPublisher=0;
-		this.pubName=null;
+		this.id=0;
+		this.name=null;
+		this.address_id =0;
 	}
-	public int getIdPublisher() {
-		return idPublisher;
+	public int getId() {
+		return id;
 	}
-	public void setIdPublisher(int idPublisher) {
-		this.idPublisher = idPublisher;
+	public int getAddress_id() {
+		return address_id;
 	}
-	public String getPubName() {
-		return pubName;
+	public void setAddress_id(int address_id) {
+		this.address_id = address_id;
 	}
-	public void setPubName(String pubName) {
-		this.pubName = pubName;
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	@Override
 	public String toString() {
-		return "Publisher [idPublisher=" + idPublisher + ", pubName=" + pubName + "]";
+		return "Publisher [id=" + id + ", name=" + name + "]";
 	}
 
 	

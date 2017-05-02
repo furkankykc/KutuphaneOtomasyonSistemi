@@ -18,14 +18,14 @@ public class JdbcPublisherDao {
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	public void delete(String IdPublisher) {
+	public void delete(String id) {
 		String sql  = "DELETE FROM Publisher " +
 				"WHERE id=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, IdPublisher);
+			ps.setString(1, id);
 			ps.executeUpdate();
 			ps.close();
 			
@@ -35,19 +35,18 @@ public class JdbcPublisherDao {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 	}
 	public void delete(Publisher Publisher) {
 		String sql  = "DELETE FROM Publisher " +
-				"WHERE idPublisher=? and pubName=?";
+				"WHERE id=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Publisher.getIdPublisher());
-			ps.setString(2,	Publisher.getPubName());
+			ps.setInt(1, Publisher.getId());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -57,22 +56,23 @@ public class JdbcPublisherDao {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 	}
 	public void insert(Publisher Publisher){
 
 		String sql = "INSERT INTO Publisher " +
-				"(idPublisher,pubName) VALUES (?, ?)";
+				"(id,pubName,address_id) VALUES (?, ?, ?)";
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, Publisher.getIdPublisher());
-			ps.setString(2, Publisher.getPubName());
+			ps.setInt(1, Publisher.getId());
+			ps.setString(2, Publisher.getName());
+			ps.setInt(3, Publisher.getAddress_id());
 			ps.executeUpdate();
 			ps.close();
 
@@ -88,22 +88,23 @@ public class JdbcPublisherDao {
 		}
 	}
 
-	public Publisher getPublisher(int idPublisher){
+	public Publisher getPublisher(int id){
 
-		String sql = "SELECT * FROM Publisher WHERE idPublisher = ?";
+		String sql = "SELECT * FROM Publisher WHERE id = ?";
 		
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, idPublisher);
+			ps.setInt(1, id);
 			
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				this.Publisher = new Publisher(
-					rs.getInt("idPublisher"),
-					rs.getString("pubName")
+						rs.getInt("id"),
+						rs.getString("pubName"),
+						rs.getInt("address_id")
 				);
 			}
 			rs.close();
@@ -132,8 +133,9 @@ public class JdbcPublisherDao {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) 
 				this.PublisherList.add(new Publisher(
-						rs.getInt("idPublisher"),
-						rs.getString("pubName")
+						rs.getInt("id"),
+						rs.getString("pubName"),
+						rs.getInt("address_id")
 				));
 			
 			rs.close();

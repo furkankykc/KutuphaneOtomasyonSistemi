@@ -4,15 +4,29 @@
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 	<import resource="Spring-Datasource.xml" />
-	<import resource="Spring-Kitap.xml" />
-	<import resource="Spring-Login.xml"/>
+	
+	<bean id="userDao" class="Dao.JdbcUserDao">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
 	<bean id="authDao" class="Dao.JdbcAuthorDao">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+	
 	<bean id="categoryDao" class="Dao.JdbcCategoryDao">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+	
 	<bean id="addressDao" class="Dao.JdbcAddressDao">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+	
+	<bean id="publisherDao" class="Dao.JdbcPublisherDao">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="bookDao" class="Dao.JdbcBookDao">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
 </beans>

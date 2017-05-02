@@ -12,70 +12,70 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import Dao.JdbcAddressDao;
-import Entity.Address;
+import Dao.JdbcPublisherDao;
+import Entity.Publisher;
 
-@RequestMapping(value="/Address")
+@RequestMapping(value="/Publisher")
 @Controller
-public class AddressController {
-	  @RequestMapping(value = "/Address", method = RequestMethod.GET)
+public class PublisherController {
+	  @RequestMapping(value = "/Publisher", method = RequestMethod.GET)
 	    public String init(Model model) {
 	    	ApplicationContext context =
 	    			 
 	    			new ClassPathXmlApplicationContext("Spring-Module.xml");
-	    		    	JdbcAddressDao AddressDao = (JdbcAddressDao) context.getBean("addressDao");
+	    		    	JdbcPublisherDao PublisherDao = (JdbcPublisherDao) context.getBean("publisherDao");
 	    		    	
-	    						model.addAttribute("addresses",AddressDao.getAddress());
+	    						model.addAttribute("publishers",PublisherDao.getPublisher());
 	    							    	
 
-	        return "Address";	
+	        return "Publisher";	
 	    }
-	    @RequestMapping(value = "/Address",params="add",method = RequestMethod.POST)
-	    public String add(Model model, @ModelAttribute("AddressBean") Address AddressBean,@RequestParam String add) {
+	    @RequestMapping(value = "/Publisher",params="add",method = RequestMethod.POST)
+	    public String add(Model model, @ModelAttribute("PublisherBean") Publisher PublisherBean,@RequestParam String add) {
 	    	ApplicationContext context =
 		    		new ClassPathXmlApplicationContext("Spring-Module.xml");
-	    	JdbcAddressDao AddressDao = (JdbcAddressDao) context.getBean("addressDao");
+	    	JdbcPublisherDao PublisherDao = (JdbcPublisherDao) context.getBean("publisherDao");
 	    	
-	    	if(AddressBean!=null){
-	    	AddressDao.insert(AddressBean);
+	    	if(PublisherBean!=null){
+	    	PublisherDao.insert(PublisherBean);
 	    		    	
-	    						model.addAttribute("addresses",  AddressDao.getAddress());
+	    						model.addAttribute("publishers",  PublisherDao.getPublisher());
 					    	
-				return "Address";
+				return "Publisher";
 	    	}else{
-	    		return "Address";
+	    		return "Publisher";
 	    	}
 	}
 	    @RequestMapping(params = "del",method = RequestMethod.POST)
-	    public String delete(Model model, @ModelAttribute("AddressBean") Address AddressBean,@RequestParam String del) {
+	    public String delete(Model model, @ModelAttribute("PublisherBean") Publisher PublisherBean,@RequestParam String del) {
 	    	ApplicationContext context =
 		    		new ClassPathXmlApplicationContext("Spring-Module.xml");
-	    	JdbcAddressDao AddressDao = (JdbcAddressDao) context.getBean("addressDao");
-	    	if(AddressBean!=null){
-	    	AddressDao.delete(AddressBean);
-	    	return "Address";
+	    	JdbcPublisherDao PublisherDao = (JdbcPublisherDao) context.getBean("publisherDao");
+	    	if(PublisherBean!=null){
+	    	PublisherDao.delete(PublisherBean);
+	    	return "Publisher";
 	    	}else{
-	    		return "Address";
+	    		return "Publisher";
 	    	}
 	}
-	    @RequestMapping(value = "/Address",params = "remove",method = RequestMethod.POST)
+	    @RequestMapping(value = "/Publisher",params = "remove",method = RequestMethod.POST)
 	    public String remove(HttpServletRequest request,ModelMap modelMap,@RequestParam String remove) {
 	    	ApplicationContext context =
 		    		new ClassPathXmlApplicationContext("Spring-Module.xml");
-	    	JdbcAddressDao AddressDao = (JdbcAddressDao) context.getBean("addressDao");
+	    	JdbcPublisherDao PublisherDao = (JdbcPublisherDao) context.getBean("publisherDao");
 	    	try{
 	    	if(request.getParameter("id")!=null){
 	    	String id = request.getParameter("id");
 	    		System.out.println("||||||||||||||||||||||||"+id+"||||||||||||||||||-");
-	    		AddressDao.delete(id);
+	    		PublisherDao.delete(id);
 	    	}
 	    		
 	    	
 	    	}catch(Exception e){
 	    		modelMap.put("error", e);
 	    	}
-	    	modelMap.addAttribute("addresses",AddressDao.getAddress());
-	    		return "Address";
+	    	modelMap.addAttribute("publishers",PublisherDao.getPublisher());
+	    		return "Publisher";
 	    	
 	}
 

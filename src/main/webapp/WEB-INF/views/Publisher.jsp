@@ -15,9 +15,7 @@
 <form:form name="gettingtext" action="" method="POST">
 <ul>
     <li><label>Name</label> <input type='text' name='name' />
-    <label>Street</label> <input type='text' name='street' />
-    <label>Road</label> <input type='text' name='road' />
-    <label>Build No</label> <input type='text' name='buildNo' />
+    <label>Address</label> <input type='text' name='address_id' />
     
     
     <label>&nbsp;</label> <input name="add" action="add"  type="submit" value="Ekle" class="btn">
@@ -25,28 +23,23 @@
 </form:form><dl>
 
   <table border="1">
-   <td> Address</td>
+   <td> Publisher</td>
         <tr>
         
          	<td>ID</td>
             <td>Name</td>
-            <td>Street</td>
-            <td>Road</td>
-            <td>Build No</td>
-
+            <td>Address</td>
         </tr>
         
         
-<c:forEach items="${addresses}" var="adrs">
+<c:forEach items="${publishers}" var="pbls">
 			<tr>
-			<td>${adrs.getId()} </td>
-			<td>${adrs.getName()}</td>
-			<td>${adrs.getStreet() }</td>
-			<td>${adrs.getRoad() }</td>
-			<td>${adrs.getBuildNo() }</td>
+			<td>${pbls.getId()} </td>
+			<td>${pbls.getName()}</td>
+			<td>${pbls.getAddress_id()}</td>
+<form:form method="POST" action="Publisher">
+			<input type="hidden" value="${pbls.getId()}" name="id">
 			
-<form:form method="POST" action="Address">
-			<input type="hidden" value="${cat.getId()}" name="id">
 			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
 			<!--<td> <button name="CurrentDelete" value="${cat.getId()}" type="submit">Delete</button></td>
 			-->

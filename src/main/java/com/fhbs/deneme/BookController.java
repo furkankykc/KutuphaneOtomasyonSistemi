@@ -27,11 +27,11 @@ public class BookController {
     	ApplicationContext context =
     			 
     			new ClassPathXmlApplicationContext("Spring-Module.xml");
-    		    	JdbcBookDao kitapDao = (JdbcBookDao) context.getBean("kitapDao");
-    		    	//kitapDao.insert(new Book("furkan",12,0,0,0));
-    		//JdbcKitapDao kitapDao2 = (JdbcKitapDao) context.getBean("kitapDao");
-    		    	JdbcUserDao Login  = (JdbcUserDao) context.getBean("UserDao");
-    						model.addAttribute("kitaplar",kitapDao.getBook());
+    		    	JdbcBookDao bookDao = (JdbcBookDao) context.getBean("bookDao");
+    		    	//bookDao.insert(new Book("furkan",12,0,0,0));
+    		//JdbcbookDao bookDao2 = (JdbcbookDao) context.getBean("bookDao");
+    		    	JdbcUserDao Login  = (JdbcUserDao) context.getBean("userDao");
+    						model.addAttribute("books",bookDao.getBook());
     							    	
 
         return "Book";	
@@ -44,12 +44,12 @@ public class BookController {
     public String add(Model model, @ModelAttribute("kitapBean") Book kitapBean,@RequestParam String add) {
     	ApplicationContext context =
 	    		new ClassPathXmlApplicationContext("Spring-Module.xml");
-    	JdbcBookDao kitapDao = (JdbcBookDao) context.getBean("kitapDao");
+    	JdbcBookDao bookDao = (JdbcBookDao) context.getBean("bookDao");
     	
     	if(kitapBean!=null){
-    	kitapDao.insert(kitapBean);
+    	bookDao.insert(kitapBean);
     		    	
-    						model.addAttribute("kitaplar",  kitapDao.getBook());
+    						model.addAttribute("books",  bookDao.getBook());
 				    	
 			return "Book";
     	}else{
@@ -61,9 +61,9 @@ public class BookController {
     public String delete(Model model, @ModelAttribute("kitapBean") Book kitapBean,@RequestParam String del) {
     	ApplicationContext context =
 	    		new ClassPathXmlApplicationContext("Spring-Module.xml");
-    	JdbcBookDao kitapDao = (JdbcBookDao) context.getBean("kitapDao");
+    	JdbcBookDao bookDao = (JdbcBookDao) context.getBean("bookDao");
     	if(kitapBean!=null){
-    	kitapDao.delete(kitapBean);
+    	bookDao.delete(kitapBean);
     	return "Book";
     	}else{
     		return "Book";
@@ -76,19 +76,19 @@ public class BookController {
     public String remove(HttpServletRequest request,ModelMap modelMap,@RequestParam String remove) {
     	ApplicationContext context =
 	    		new ClassPathXmlApplicationContext("Spring-Module.xml");
-    	JdbcBookDao kitapDao = (JdbcBookDao) context.getBean("kitapDao");
+    	JdbcBookDao bookDao = (JdbcBookDao) context.getBean("bookDao");
     	try{
     	if(request.getParameter("id")!=null){
     	String kitapId = request.getParameter("id");
     		System.out.println("||||||||||||||||||||||||"+kitapId+"||||||||||||||||||-");
-    		kitapDao.delete(kitapId);
+    		bookDao.delete(kitapId);
     		
     		
     	}
     	}catch(Exception e){
     		modelMap.put("error", e);
     	}
-    	modelMap.addAttribute("kitaplar",kitapDao.getBook());
+    	modelMap.addAttribute("books",bookDao.getBook());
     		return "Book";
     	
     }

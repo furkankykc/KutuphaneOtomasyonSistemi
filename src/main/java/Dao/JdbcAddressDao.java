@@ -41,13 +41,12 @@ public class JdbcAddressDao {
 	}
 	public void delete(Address Address) {
 		String sql  = "DELETE FROM Address " +
-				"WHERE id=? and buildNo=?";
+				"WHERE id=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Address.getId());
-			ps.setString(2,	Address.getBuildNo());
+			ps.setInt(1, Address.getId());;
 			ps.executeUpdate();
 			ps.close();
 			

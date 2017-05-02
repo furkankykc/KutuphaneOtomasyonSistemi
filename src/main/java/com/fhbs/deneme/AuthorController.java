@@ -26,7 +26,7 @@ public class AuthorController {
     			new ClassPathXmlApplicationContext("Spring-Module.xml");
     		    	JdbcAuthorDao authDao = (JdbcAuthorDao) context.getBean("authDao");
     		    	
-    						model.addAttribute("author",authDao.getAuthor());
+    						model.addAttribute("authors",authDao.getAuthor());
     							    	
 
         return "Author";	
@@ -40,7 +40,7 @@ public class AuthorController {
     	if(authBean!=null){
     	authDao.insert(authBean);
     		    	
-    						model.addAttribute("author",  authDao.getAuthor());
+    						model.addAttribute("authors",  authDao.getAuthor());
 				    	
 			return "Author";
     	}else{
@@ -59,13 +59,15 @@ public class AuthorController {
     		return "Author";
     	}
 }
+    
+    @RequestMapping(value = "/Author",params = "remove",method = RequestMethod.POST)
     public String remove(HttpServletRequest request,ModelMap modelMap,@RequestParam String remove) {
     	ApplicationContext context =
 	    		new ClassPathXmlApplicationContext("Spring-Module.xml");
     	JdbcAuthorDao authDao = (JdbcAuthorDao) context.getBean("authDao");
     	try{
-    	if(request.getParameter("authId")!=null){
-    		String authId = request.getParameter("authId");
+    	if(request.getParameter("id")!=null){
+    		String authId = request.getParameter("id");
     		System.out.println("||||||||||||||||||||||||"+authId+"||||||||||||||||||-");
     		authDao.delete(authId);
     		
@@ -74,7 +76,7 @@ public class AuthorController {
     	}catch(Exception e){
     		modelMap.put("error", e);
     	}
-    	modelMap.addAttribute("author",authDao.getAuthor());
+    	modelMap.addAttribute("authors",authDao.getAuthor());
     		return "Author";
     	
 }

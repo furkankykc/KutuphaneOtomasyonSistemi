@@ -24,32 +24,35 @@
     </ul>
 </form:form><dl>
 
-<form:form method="POST" action="Book">
-  <table border="0">
+  <table border="1">
         <tr>
-        <td><input type="checkbox" class="chkCheckBoxId" value="asd" name = "kitapId"/></td>
-         <td> ADI</td>
+        	<td>ID</td>
+         	<td>KİTAP ADI</td>
             <td>YAZARI</td>
-            <td>YAZARI</td>
-            <td>YAZARI</td>
-            <td>YAZARI</td>
-            <td>YAZARI</td>
+            <td>KATEGORİ</td>
+            <td>YAYIMCI</td>
+            <td>SAYFA SAYISI</td>
         </tr>
         
         
-<c:forEach items="${kitaplar}" var="kitap">
+<c:forEach items="${books}" var="book">
 			<tr>
-			<td><input type="checkbox" class="chkCheckBoxId" value="${kitap.getBookName()}" name = "kitapId"/></td>
+			<td>${book.getId()} </td>
+			<td>${book.getBookName()} </td>	
+			<td>${book.getAuthor_id()}</td>
+			<td>${book.getCategory_id()}</td>
+			<td>${book.getPublisher_id()}</td>
+			<td>${book.getBookPage()}</td>
 			
-			<td>${kitap.getBookName()} </td>
-			<td>${kitap.getBookPage()}</td>
-			<td>${kitap.getAuthor_id()}</td>
-			<td>${kitap.getCategory_id()}</td>
-			<td>${kitap.getPublisher_id()}</td>
+<form:form method="POST" action="Book">
+			<input type="hidden" value="${book.getId()}" name="id">
+			
+			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
+			
+	 </form:form>
 			</tr>
+			
 	</c:forEach>
-	<label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "remove" class = "btn">
- </form:form>
 </tr>
 </dl>
 </body>

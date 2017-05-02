@@ -14,27 +14,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import Dao.JdbcBookDao;
-import Dao.JdbcKitapDao;
-import Dao.JdbcLoginDao;
-import Dao.JdbcUserDao;
-import Entity.Book;
-import Entity.User;
+import Dao.*;
+import Entity.*;
 
 @RequestMapping(value = "/admin")
 @Controller
 public class AdminController {
 	    @RequestMapping(value = "/admin", method = RequestMethod.GET)
 	    public String init(Model model) {
-	        model.addAttribute("msg", "id sifre gir");
-	    	ApplicationContext context =
-	    			 
-	    			new ClassPathXmlApplicationContext("Spring-Module.xml");
-	    		    	JdbcBookDao kitapDao = (JdbcBookDao) context.getBean("kitapDao");
+	    	ApplicationContext context =new ClassPathXmlApplicationContext("Spring-Module.xml");
+	    	JdbcBookDao bookDao = (JdbcBookDao) context.getBean("bookDao");
+	    	JdbcAddressDao addressDao = (JdbcAddressDao) context.getBean("addressDao");
+	    	JdbcAuthorDao authorDao = (JdbcAuthorDao) context.getBean("authDao");
+	    	JdbcCategoryDao categoryDao = (JdbcCategoryDao) context.getBean("categoryDao");
+	    	JdbcPublisherDao publisherDao = (JdbcPublisherDao) context.getBean("publisherDao");
+	    	
+    		//JdbcKitapDao kitapDao2 = (JdbcKitapDao) context.getBean("kitapDao");
 	    		    	
-	    		//JdbcKitapDao kitapDao2 = (JdbcKitapDao) context.getBean("kitapDao");
-	    		    	JdbcUserDao Login  = (JdbcUserDao) context.getBean("UserDao");
-	    						model.addAttribute("kitaplar",kitapDao.getBook());
+	    	model.addAttribute("books",bookDao.getBook());
+	    	model.addAttribute("categories",categoryDao.getCategory());
+	    	model.addAttribute("publishers",publisherDao.getPublisher());
+	    	model.addAttribute("authors",authorDao.getAuthor());
+	    	model.addAttribute("addresses",addressDao.getAddress());
 	    							    	
 	
 	        return "admin";	

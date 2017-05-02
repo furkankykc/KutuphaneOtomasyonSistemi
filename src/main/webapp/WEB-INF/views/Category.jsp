@@ -21,7 +21,6 @@
     </ul>
 </form:form><dl>
 
-<form:form method="POST" action="Category">
   <table border="1">
    <td> Category</td>
         <tr>
@@ -32,19 +31,22 @@
         </tr>
         
         
-<c:forEach items="${Category}" var="cat">
+<c:forEach items="${categories}" var="cat">
 			<tr>
 			<td>${cat.getId()} </td>
 			<td>${cat.getName()}</td>
+			
+<form:form method="POST" action="Category">
 			<input type="hidden" value="${cat.getId()}" name="id">
 			
 			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
 			<!--<td> <button name="CurrentDelete" value="${cat.getId()}" type="submit">Delete</button></td>
 			-->
+			
+ </form:form>
 			</tr>
 	</c:forEach>
 	
- </form:form>
 </tr>
 </dl>
 </body>

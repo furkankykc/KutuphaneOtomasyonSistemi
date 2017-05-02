@@ -22,10 +22,10 @@
     </ul>
 </form:form><dl>
 
-<form:form method="POST" action="Book">
   <table border="1">
-        <tr>
+  
          <td> AUTHOR</td>
+        <tr>
          	<td>ID</td>
             <td>FIRST NAME</td>
             <td>LAST NAME</td>
@@ -34,16 +34,20 @@
         </tr>
         
         
-<c:forEach items="${author}" var="auth">
+<c:forEach items="${authors}" var="auth">
 			<tr>
 			<td>${auth.getId()} </td>
 			<td>${auth.getFirstName()}</td>
 			<td>${auth.getLastName()}</td>
 			<td>${auth.getaddress_id()}</td>
+<form:form method="POST" action="Author">
+			<input type="hidden" value="${auth.getId()}" name="id">
+			
+			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
+			
+	 </form:form>
 			</tr>
 	</c:forEach>
-	<label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "remove" class = "btn">
- </form:form>
 </tr>
 </dl>
 </body>

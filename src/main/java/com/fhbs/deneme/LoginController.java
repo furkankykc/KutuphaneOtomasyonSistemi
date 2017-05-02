@@ -23,7 +23,7 @@ public class LoginController {
     public String submit(Model model, @ModelAttribute("loginBean") User loginBean) {
     	ApplicationContext context =
 	    		new ClassPathXmlApplicationContext("Spring-Module.xml");
-    	JdbcUserDao loginDao = (JdbcUserDao) context.getBean("UserDao");
+    	JdbcUserDao loginDao = (JdbcUserDao) context.getBean("userDao");
     	User girdi=loginDao.getUser(loginBean.getUserName());
     	if (girdi!= null && loginBean != null && loginBean.getUserName() != null & loginBean.getPassword() != null) {
 	    	if(girdi.getPassword().equals(loginBean.getPassword())){

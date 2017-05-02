@@ -25,7 +25,7 @@ public class CategoryController {
 	    			new ClassPathXmlApplicationContext("Spring-Module.xml");
 	    		    	JdbcCategoryDao categoryDao = (JdbcCategoryDao) context.getBean("categoryDao");
 	    		    	
-	    						model.addAttribute("Category",categoryDao.getCategory());
+	    						model.addAttribute("categories",categoryDao.getCategory());
 	    							    	
 
 	        return "Category";	
@@ -39,7 +39,7 @@ public class CategoryController {
 	    	if(categoryBean!=null){
 	    	categoryDao.insert(categoryBean);
 	    		    	
-	    						model.addAttribute("Category",  categoryDao.getCategory());
+	    						model.addAttribute("categories",  categoryDao.getCategory());
 					    	
 				return "Category";
 	    	}else{
@@ -68,13 +68,14 @@ public class CategoryController {
 	    	String id = request.getParameter("id");
 	    		System.out.println("||||||||||||||||||||||||"+id+"||||||||||||||||||-");
 	    		categoryDao.delete(id);
+	    		
 	    	}
 	    		
 	    	
 	    	}catch(Exception e){
 	    		modelMap.put("error", e);
 	    	}
-	    	modelMap.addAttribute("Category",categoryDao.getCategory());
+	    	modelMap.addAttribute("categories",categoryDao.getCategory());
 	    		return "Category";
 	    	
 	}

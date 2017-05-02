@@ -15,35 +15,155 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<table border="1">
 
-<form:form name="gettingtext" action="admin" method="POST">
-<ul>
-    <li><label>Kitap Adı:</label> <input type='text' name='bookName' />
-    <label>Kitap Yazarı:</label> <input type='text' name='bookPage' />
-    <label>&nbsp;</label> <input name="add" action="add"  type="submit" value="Ekle" class="btn">
-    <label>&nbsp;</label> <input name="del" action="del" type="submit" value="Sil" class="btn"></li>
-</ul>
-</form:form><dl>
-
-<form:form method="POST" action="admin">
-  <table border="0">
+	<td>Book</td>
+	
+  <td><form method="get" action="Book">
+    <button type="submit">Ekle</button>	</td>
         <tr>
-        <td><input type="checkbox" class="chkCheckBoxId" value="asd" name = "kitapId"/></td>
-         <td> ADI</td>
-            <td>YAZARI</td>
+        	<td>ID</td>
+         	<td>BookName</td>
+            <td>Author</td>
+            <td>Category</td>
+            <td>Publisher</td>
+            <td>PageNo</td>
         </tr>
         
         
-<c:forEach items="${kitaplar}" var="kitap">
+<c:forEach items="${books}" var="book">
 			<tr>
-			<td><input type="checkbox" class="chkCheckBoxId" value="${kitap.getBookName()}" name = "kitapId"/></td>
+			<td>${book.getId()} </td>
+			<td>${book.getBookName()} </td>	
+			<td>${book.getAuthor_id()}</td>
+			<td>${book.getCategory_id()}</td>
+			<td>${book.getPublisher_id()}</td>
+			<td>${book.getBookPage()}</td>
 			
-			<td>${kitap.getBookName()} </td><td>${kitap.getBookPage()}</td>
+<form:form method="POST" action="Book">
+			<input type="hidden" value="${book.getId()}" name="id">
+			
+			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
+			
+	 </form:form>
+			</tr>
+			
+	</c:forEach>
+	<table border="1">
+  
+         <td> Author</td>
+         
+  <td><form method="get" action="Author">
+    <button type="submit">Ekle</button>	</td>
+        <tr>
+         	<td>ID</td>
+            <td>FirstName</td>
+            <td>LastName</td>
+            <td>Address	</td>
+
+        </tr>
+        
+        
+<c:forEach items="${authors}" var="auth">
+			<tr>
+			<td>${auth.getId()} </td>
+			<td>${auth.getFirstName()}</td>
+			<td>${auth.getLastName()}</td>
+			<td>${auth.getaddress_id()}</td>
+<form:form method="POST" action="Author">
+			<input type="hidden" value="${auth.getId()}" name="id">
+			
+			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
+			
+	 </form:form>
 			</tr>
 	</c:forEach>
-	<label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "remove" class = "btn">
+	
+  <table border="1">
+   <td> Category</td>
+   
+  <td><form method="get" action="Category">
+    <button type="submit">Ekle</button>	</td>
+        <tr>
+        
+         	<td>ID</td>
+            <td>NAME</td>
+
+        </tr>
+        
+        
+<c:forEach items="${categories}" var="cat">
+			<tr>
+			<td>${cat.getId()} </td>
+			<td>${cat.getName()}</td>
+			
+<form:form method="POST" action="Category">
+			<input type="hidden" value="${cat.getId()}" name="id">
+			
+			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
+			<!--<td> <button name="CurrentDelete" value="${cat.getId()}" type="submit">Delete</button></td>
+			-->
+			
  </form:form>
-</tr>
-</dl>
+			</tr>
+	</c:forEach>
+	
+  <table border="1">
+   <td>Publisher</td>
+  <td><form method="get" action="Publisher">
+    <button type="submit">Ekle</button>	</td>
+</form>
+        <tr>
+        
+         	<td>ID</td>
+            <td>Name</td>
+            <td>Address</td>
+        </tr>
+        
+        
+<c:forEach items="${publishers}" var="pbls">
+			<tr>
+			<td>${pbls.getId()} </td>
+			<td>${pbls.getName()}</td>
+			<td>${pbls.getAddress_id()}</td>
+<form:form method="POST" action="Publisher">
+			<input type="hidden" value="${pbls.getId()}" name="id">
+			
+			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
+			<!--<td> <button name="CurrentDelete" value="${cat.getId()}" type="submit">Delete</button></td>
+			-->
+ </form:form>
+			</tr>
+	</c:forEach>
+	  <table border="1">
+   <td> Address</td>
+        <tr>
+        
+         	<td>ID</td>
+            <td>Name</td>
+            <td>Street</td>
+            <td>Road</td>
+            <td>Build No</td>
+
+        </tr>
+        
+        
+<c:forEach items="${addresses}" var="adrs">
+			<tr>
+			<td>${adrs.getId()} </td>
+			<td>${adrs.getName()}</td>
+			<td>${adrs.getStreet() }</td>
+			<td>${adrs.getRoad() }</td>
+			<td>${adrs.getBuildNo() }</td>
+			
+<form:form method="POST" action="Address">
+			<input type="hidden" value="${cat.getId()}" name="id">
+			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
+			<!--<td> <button name="CurrentDelete" value="${cat.getId()}" type="submit">Delete</button></td>
+			-->
+ </form:form>
+			</tr>
+	</c:forEach>
+	
 </body>
 </html>
