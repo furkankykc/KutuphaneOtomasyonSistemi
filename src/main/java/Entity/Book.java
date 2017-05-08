@@ -2,6 +2,13 @@ package Entity;
 
 import java.sql.Date;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import Dao.JdbcAuthorDao;
+import Dao.JdbcCategoryDao;
+import Dao.JdbcPublisherDao;
+
 public class Book {
 	private int id;
 	private String bookName;
@@ -47,10 +54,10 @@ public class Book {
 		this.publisher_id=publisher_id;
 		this.printingDate=printingDate;
 	}
-	public int getId() {
+	public int getID() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setID(int id) {
 		this.id = id;
 	}
 	public String getBookName() {
@@ -65,6 +72,46 @@ public class Book {
 	public void setBookPage(int bookPage) {
 		this.bookPage = bookPage;
 	}
+	public Author getAuthor() {
+		ApplicationContext context =
+   			 
+    			new ClassPathXmlApplicationContext("Spring-Module.xml");
+    		    	JdbcAuthorDao authDao = (JdbcAuthorDao) context.getBean("authDao");
+    		  
+		return authDao.getAuthor(author_id);
+	}
+	public void setAuthor(int author_id) {
+		this.author_id = author_id;
+	}
+	public Category getCategory() {
+		ApplicationContext context =
+   			 
+    			new ClassPathXmlApplicationContext("Spring-Module.xml");
+		JdbcCategoryDao categoryDao = (JdbcCategoryDao) context.getBean("categoryDao");
+    		  
+		return categoryDao.getCategory(category_id);
+	}
+	public void setCategory(int category_id) {
+		this.category_id = category_id;
+	}
+	public Publisher getPublisher() {
+		ApplicationContext context =
+   			 
+    			new ClassPathXmlApplicationContext("Spring-Module.xml");
+    		    	JdbcPublisherDao publisherDao = (JdbcPublisherDao) context.getBean("publisherDao");
+    		    	
+		return publisherDao.getPublisher(publisher_id);
+	}
+	public void setPublisher(int publisher_id) {
+		this.publisher_id = publisher_id;
+	}
+	public Date getPrintingDate() {
+		return printingDate;
+	}
+	public void setPrintingDate(Date printingDate) {
+		this.printingDate = printingDate;
+	}
+	
 	public int getAuthor_id() {
 		return author_id;
 	}
@@ -82,12 +129,6 @@ public class Book {
 	}
 	public void setPublisher_id(int publisher_id) {
 		this.publisher_id = publisher_id;
-	}
-	public Date getPrintingDate() {
-		return printingDate;
-	}
-	public void setPrintingDate(Date printingDate) {
-		this.printingDate = printingDate;
 	}
 	
 	

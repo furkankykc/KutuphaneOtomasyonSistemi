@@ -46,7 +46,7 @@ public class JdbcPublisherDao {
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Publisher.getId());
+			ps.setInt(1, Publisher.getID());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -70,9 +70,9 @@ public class JdbcPublisherDao {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, Publisher.getId());
+			ps.setInt(1, Publisher.getID());
 			ps.setString(2, Publisher.getName());
-			ps.setInt(3, Publisher.getAddress_id());
+			ps.setInt(3, Publisher.getAddress().getID());
 			ps.executeUpdate();
 			ps.close();
 

@@ -14,10 +14,10 @@ public class Category {
 		this.id = 0;
 		this.name = null;
 	}
-	public int getId() {
+	public int getID() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setID(int id) {
 		this.id = id;
 	}
 	public String getName() {

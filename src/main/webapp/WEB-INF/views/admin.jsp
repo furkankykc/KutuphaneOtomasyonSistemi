@@ -19,8 +19,9 @@
 
 	<td>Book</td>
 	
-  <td><form method="get" action="Book">
-    <button type="submit">Ekle</button>	</td>
+  <td>
+  <form method="get" action="Book">
+    <button type="submit">Ekle</button>	</form></td>
         <tr>
         	<td>ID</td>
          	<td>BookName</td>
@@ -33,22 +34,24 @@
         
 <c:forEach items="${books}" var="book">
 			<tr>
-			<td>${book.getId()} </td>
+			<td>${book.getID()} </td>
 			<td>${book.getBookName()} </td>	
-			<td>${book.getAuthor_id()}</td>
-			<td>${book.getCategory_id()}</td>
-			<td>${book.getPublisher_id()}</td>
+			<td>${book.getAuthor().getFirstName()}</td>
+			<td>${book.getCategory().getName()}</td>
+			<td>${book.getPublisher().getName()}</td>
 			<td>${book.getBookPage()}</td>
 			
 <form:form method="POST" action="Book">
-			<input type="hidden" value="${book.getId()}" name="id">
+			<input type="hidden" value="${book.getID()}" name="id">
 			
 			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
 			
 	 </form:form>
+	 
 			</tr>
 			
 	</c:forEach>
+	</table>
 	<table border="1">
   
          <td> Author</td>
@@ -61,24 +64,24 @@
             <td>LastName</td>
             <td>Address	</td>
 
-        </tr>
+        </tr> 
         
         
 <c:forEach items="${authors}" var="auth">
 			<tr>
-			<td>${auth.getId()} </td>
+			<td>${auth.getID()} </td>
 			<td>${auth.getFirstName()}</td>
 			<td>${auth.getLastName()}</td>
-			<td>${auth.getaddress_id()}</td>
+			<td>${auth.getAddress().getName()}</td>
 <form:form method="POST" action="Author">
-			<input type="hidden" value="${auth.getId()}" name="id">
+			<input type="hidden" value="${auth.getID()}" name="id">
 			
 			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
 			
 	 </form:form>
 			</tr>
 	</c:forEach>
-	
+	</table>
   <table border="1">
    <td> Category</td>
    
@@ -94,20 +97,20 @@
         
 <c:forEach items="${categories}" var="cat">
 			<tr>
-			<td>${cat.getId()} </td>
+			<td>${cat.getID()} </td>
 			<td>${cat.getName()}</td>
 			
 <form:form method="POST" action="Category">
-			<input type="hidden" value="${cat.getId()}" name="id">
+			<input type="hidden" value="${cat.getID()}" name="id">
 			
 			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
-			<!--<td> <button name="CurrentDelete" value="${cat.getId()}" type="submit">Delete</button></td>
+			<!--<td> <button name="CurrentDelete" value="${cat.getID()}" type="submit">Delete</button></td>
 			-->
 			
  </form:form>
 			</tr>
 	</c:forEach>
-	
+	</table>
   <table border="1">
    <td>Publisher</td>
   <td><form method="get" action="Publisher">
@@ -123,20 +126,25 @@
         
 <c:forEach items="${publishers}" var="pbls">
 			<tr>
-			<td>${pbls.getId()} </td>
+			<td>${pbls.getID()} </td>
 			<td>${pbls.getName()}</td>
-			<td>${pbls.getAddress_id()}</td>
+			<td>${pbls.getAddress().getName()}</td>
 <form:form method="POST" action="Publisher">
-			<input type="hidden" value="${pbls.getId()}" name="id">
+			<input type="hidden" value="${pbls.getID()}" name="id">
 			
 			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
-			<!--<td> <button name="CurrentDelete" value="${cat.getId()}" type="submit">Delete</button></td>
+			<!--<td> <button name="CurrentDelete" value="${cat.getID()}" type="submit">Delete</button></td>
 			-->
  </form:form>
 			</tr>
 	</c:forEach>
+	</table>
 	  <table border="1">
+
    <td> Address</td>
+   
+  <td><form method="get" action="Address">
+    <button type="submit">Ekle</button>	</td>
         <tr>
         
          	<td>ID</td>
@@ -150,20 +158,20 @@
         
 <c:forEach items="${addresses}" var="adrs">
 			<tr>
-			<td>${adrs.getId()} </td>
+			<td>${adrs.getID()} </td>
 			<td>${adrs.getName()}</td>
 			<td>${adrs.getStreet() }</td>
 			<td>${adrs.getRoad() }</td>
 			<td>${adrs.getBuildNo() }</td>
 			
 <form:form method="POST" action="Address">
-			<input type="hidden" value="${cat.getId()}" name="id">
+			<input type="hidden" value="${cat.getID()}" name="id">
 			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
-			<!--<td> <button name="CurrentDelete" value="${cat.getId()}" type="submit">Delete</button></td>
+			<!--<td> <button name="CurrentDelete" value="${cat.getID()}" type="submit">Delete</button></td>
 			-->
  </form:form>
 			</tr>
 	</c:forEach>
-	
+	</table>
 </body>
 </html>

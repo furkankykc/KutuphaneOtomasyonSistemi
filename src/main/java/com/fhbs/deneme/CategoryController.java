@@ -35,7 +35,7 @@ public class CategoryController {
 	    	ApplicationContext context =
 		    		new ClassPathXmlApplicationContext("Spring-Module.xml");
 	    	JdbcCategoryDao categoryDao = (JdbcCategoryDao) context.getBean("categoryDao");
-	    	
+	    	System.out.println(categoryBean.toString());
 	    	if(categoryBean!=null){
 	    	categoryDao.insert(categoryBean);
 	    		    	

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Book</title>
 </head>
 <body> 
 <!--  th:action="@{/greeting}" th:object="${greeting}"  -->
@@ -37,15 +37,15 @@
         
 <c:forEach items="${books}" var="book">
 			<tr>
-			<td>${book.getId()} </td>
+			<td>${book.getID()} </td>
 			<td>${book.getBookName()} </td>	
-			<td>${book.getAuthor_id()}</td>
-			<td>${book.getCategory_id()}</td>
-			<td>${book.getPublisher_id()}</td>
+			<td>${book.getAuthor().getFirstName()}</td>
+			<td>${book.getCategory().getName()}</td>
+			<td>${book.getPublisher().getName()}</td>
 			<td>${book.getBookPage()}</td>
 			
 <form:form method="POST" action="Book">
-			<input type="hidden" value="${book.getId()}" name="id">
+			<input type="hidden" value="${book.getID()}" name="id">
 			
 			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
 			

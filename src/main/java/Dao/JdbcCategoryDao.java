@@ -46,7 +46,7 @@ public class JdbcCategoryDao {
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Category.getId());
+			ps.setInt(1, Category.getID());
 			ps.setString(2,	Category.getName());
 			ps.executeUpdate();
 			ps.close();
@@ -71,7 +71,7 @@ public class JdbcCategoryDao {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, Category.getId());
+			ps.setInt(1, Category.getID());
 			ps.setString(2, Category.getName());
 			ps.executeUpdate();
 			ps.close();

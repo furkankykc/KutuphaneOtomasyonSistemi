@@ -46,7 +46,7 @@ public class JdbcAuthorDao {
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Author.getId());
+			ps.setInt(1, Author.getID());
 			ps.setString(2,	Author.getFirstName());
 			ps.executeUpdate();
 			ps.close();
@@ -71,10 +71,10 @@ public class JdbcAuthorDao {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, Author.getId());
+			ps.setInt(1, Author.getID());
 			ps.setString(2, Author.getFirstName());
 			ps.setString(3, Author.getLastName());
-			ps.setInt(4, Author.getaddress_id());
+			ps.setInt(4, Author.getAddress().getID());
 			ps.executeUpdate();
 			ps.close();
 
@@ -90,7 +90,7 @@ public class JdbcAuthorDao {
 		}
 	}
 	public void update(Author Author){}
-	public Author getAuthor(String Authorid){
+	public Author getAuthor(int Authorid){
 
 		String sql = "SELECT * FROM Author WHERE id = ?";
 		
@@ -99,7 +99,7 @@ public class JdbcAuthorDao {
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, Authorid);
+			ps.setInt(1, Authorid);
 			
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {

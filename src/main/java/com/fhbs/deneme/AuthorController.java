@@ -36,7 +36,7 @@ public class AuthorController {
     	ApplicationContext context =
 	    		new ClassPathXmlApplicationContext("Spring-Module.xml");
     	JdbcAuthorDao authDao = (JdbcAuthorDao) context.getBean("authDao");
-    	
+    	System.out.println(authBean.toString());
     	if(authBean!=null){
     	authDao.insert(authBean);
     		    	

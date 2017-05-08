@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 import Entity.Book;
-import Entity.kitap;
 
 public class JdbcBookDao {
 	private DataSource dataSource;
@@ -47,7 +46,7 @@ public class JdbcBookDao {
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Book.getId());
+			ps.setInt(1, Book.getID());
 			ps.setString(2,	Book.getBookName());
 			ps.executeUpdate();
 			ps.close();
@@ -74,9 +73,9 @@ public class JdbcBookDao {
 			
 			ps.setString(1, Book.getBookName());
 			ps.setInt(2, Book.getBookPage());
-			ps.setInt(3, Book.getAuthor_id());
-			ps.setInt(4, Book.getCategory_id());
-			ps.setInt(5, Book.getPublisher_id());
+			ps.setInt(3, Book.getAuthor().getID());
+			ps.setInt(4, Book.getCategory().getID());
+			ps.setInt(5, Book.getPublisher().getID());
 			ps.setDate(6, Book.getPrintingDate());
 
 			

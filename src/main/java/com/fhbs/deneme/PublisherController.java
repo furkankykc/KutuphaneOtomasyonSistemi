@@ -35,7 +35,7 @@ public class PublisherController {
 	    	ApplicationContext context =
 		    		new ClassPathXmlApplicationContext("Spring-Module.xml");
 	    	JdbcPublisherDao PublisherDao = (JdbcPublisherDao) context.getBean("publisherDao");
-	    	
+	    	System.out.println(PublisherBean);
 	    	if(PublisherBean!=null){
 	    	PublisherDao.insert(PublisherBean);
 	    		    	

@@ -46,7 +46,7 @@ public class JdbcAddressDao {
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Address.getId());;
+			ps.setInt(1, Address.getID());;
 			ps.executeUpdate();
 			ps.close();
 			
@@ -91,6 +91,7 @@ public class JdbcAddressDao {
 
 	public Address getAddress(int id){
 
+		if(id<1) return null;
 		String sql = "SELECT * FROM Address WHERE id = ?";
 		
 		Connection conn = null;

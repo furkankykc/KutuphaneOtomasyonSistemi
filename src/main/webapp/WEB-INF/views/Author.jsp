@@ -16,7 +16,7 @@
 <ul>
     <li><label>First Name</label> <input type='text' name='firstName' />
     <label>Last Name</label> <input type='text' name='lastName' />
-    <label>address</label> <input type='int' name='address_id' />
+    <label>Address</label> <input type='text' name='address_id' />
     
     <label>&nbsp;</label> <input name="add" action="add"  type="submit" value="Ekle" class="btn">
     </ul>
@@ -36,12 +36,12 @@
         
 <c:forEach items="${authors}" var="auth">
 			<tr>
-			<td>${auth.getId()} </td>
+			<td>${auth.getID()} </td>
 			<td>${auth.getFirstName()}</td>
 			<td>${auth.getLastName()}</td>
-			<td>${auth.getaddress_id()}</td>
+			<td>${auth.getAddress().getName()}</td>
 <form:form method="POST" action="Author">
-			<input type="hidden" value="${auth.getId()}" name="id">
+			<input type="hidden" value="${auth.getID()}" name="id">
 			
 			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
 			

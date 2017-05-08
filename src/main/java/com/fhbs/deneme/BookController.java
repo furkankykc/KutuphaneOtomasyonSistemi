@@ -17,7 +17,6 @@ import Dao.JdbcLoginDao;
 import Dao.JdbcUserDao;
 import Entity.Book;
 import Entity.User;
-import Entity.kitap;
 @RequestMapping(value = "/Book")
 @Controller
 public class BookController {

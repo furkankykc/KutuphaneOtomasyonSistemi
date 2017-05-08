@@ -1,9 +1,15 @@
 package Entity;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import Dao.JdbcAddressDao;
+
 public class Publisher {
-	int id;
-	String name;
-	int address_id;
+	private int id;
+	private String name;
+	private int address_id;
+	private Address address;
 	public Publisher(int id ,String name,int addres_id){
 		this.id = id;
 		this.name = name;
@@ -21,7 +27,7 @@ public class Publisher {
 		this.name=null;
 		this.address_id =0;
 	}
-	public int getId() {
+	public int getID() {
 		return id;
 	}
 	public int getAddress_id() {
@@ -30,7 +36,7 @@ public class Publisher {
 	public void setAddress_id(int address_id) {
 		this.address_id = address_id;
 	}
-	public void setId(int id) {
+	public void setID(int id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -39,10 +45,14 @@ public class Publisher {
 	public void setName(String name) {
 		this.name = name;
 	}
-	@Override
-	public String toString() {
-		return "Publisher [id=" + id + ", name=" + name + "]";
+	
+	public Address getAddress(){
+		ApplicationContext context =
+	   			 
+    			new ClassPathXmlApplicationContext("Spring-Module.xml");
+    		    	JdbcAddressDao AddressDao = (JdbcAddressDao) context.getBean("addressDao");
+    		return AddressDao.getAddress(address_id);
 	}
-
+	
 	
 }
