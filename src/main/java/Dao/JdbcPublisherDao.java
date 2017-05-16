@@ -46,7 +46,7 @@ public class JdbcPublisherDao {
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Publisher.getID());
+			ps.setInt(1, Publisher.getId());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -63,16 +63,15 @@ public class JdbcPublisherDao {
 	public void insert(Publisher Publisher){
 
 		String sql = "INSERT INTO Publisher " +
-				"(id,pubName,address_id) VALUES (?, ?, ?)";
+				"(pubName,address_id) VALUES (?, ?)";
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, Publisher.getID());
-			ps.setString(2, Publisher.getName());
-			ps.setInt(3, Publisher.getAddress().getID());
+			ps.setString(1, Publisher.getName());
+			ps.setInt(2, Publisher.getAddress_id());
 			ps.executeUpdate();
 			ps.close();
 
@@ -87,7 +86,34 @@ public class JdbcPublisherDao {
 			}
 		}
 	}
+	public void update(Publisher Publisher){
+		String sql = "UPDATE Publisher SET pubName = ?, address_id = ? WHERE id = ? ";
+		
+		Connection conn = null;
 
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, Publisher.getName());
+			ps.setInt(2, Publisher.getAddress_id());
+			ps.setInt(3, Publisher.getId());
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {}
+			}
+		}
+	}
+	
+	
 	public Publisher getPublisher(int id){
 
 		String sql = "SELECT * FROM Publisher WHERE id = ?";

@@ -1,20 +1,21 @@
 package Entity;
 public class User {
 
-	private int idUser;
+	private int id;
 	private String firstName;
 	private String lastName;
 	private String userName;
 	private String password;
-	
+	private int address_id;
 	
 	public User(){
 		super();
-		this.idUser = 0;
+		this.id = 0;
 		this.firstName = null;
 		this.lastName = null;
 		this.userName = null;
 		this.password = null;
+		this.address_id = 0;
 		
 	}
 	public User(String userName,String password){
@@ -22,20 +23,27 @@ public class User {
 		this.password = password;
 	}
 	
-	public User(int idUser, String firstName, String lastName, String userName, String password) {
+	public User(int id, String firstName, String lastName, int address_id, String userName, String password) {
 		super();
-		this.idUser = 0;
+		this.id = 0;
 		this.firstName = null;
 		this.lastName = null;
 		this.userName = userName;
 		this.password = password;
+		this.address_id = 0;
 		
 	}
-	public int getID() {
-		return idUser;
+	public int getAddress_id() {
+		return address_id;
 	}
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
+	public void setAddress_id(int address_id) {
+		this.address_id = address_id;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setid(int id) {
+		this.id = id;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -63,7 +71,7 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [idUser=" + idUser + ", firstName=" + firstName + ", lastName=" + lastName + ", userName="
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", userName="
 				+ userName + ", password=" + password + "]";
 	}
 	

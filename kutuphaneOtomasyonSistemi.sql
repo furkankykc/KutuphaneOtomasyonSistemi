@@ -17,8 +17,6 @@ create table Address(
 );
 
 
-
-
 create table User(
     id int primary key auto_increment,
     firstName varchar(30),
@@ -39,7 +37,7 @@ create table Publisher(
    
 
 
-
+INSERT INTO Publisher (pubName,address_id) VALUES ('furkan',6)
 
 create table Author(
 	id int not null primary key auto_increment,

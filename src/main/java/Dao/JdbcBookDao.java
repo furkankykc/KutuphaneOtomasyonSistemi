@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 import Entity.Book;
+import Entity.Publisher;
 
 public class JdbcBookDao {
 	private DataSource dataSource;
@@ -46,7 +47,7 @@ public class JdbcBookDao {
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Book.getID());
+			ps.setInt(1, Book.getId());
 			ps.setString(2,	Book.getBookName());
 			ps.executeUpdate();
 			ps.close();
@@ -73,9 +74,9 @@ public class JdbcBookDao {
 			
 			ps.setString(1, Book.getBookName());
 			ps.setInt(2, Book.getBookPage());
-			ps.setInt(3, Book.getAuthor().getID());
-			ps.setInt(4, Book.getCategory().getID());
-			ps.setInt(5, Book.getPublisher().getID());
+			ps.setInt(3, Book.getAuthor().getId());
+			ps.setInt(4, Book.getCategory().getId());
+			ps.setInt(5, Book.getPublisher().getId());
 			ps.setDate(6, Book.getPrintingDate());
 
 			
@@ -93,7 +94,37 @@ public class JdbcBookDao {
 			}
 		}
 	}
+	public void update(Book Book){
+		String sql = "UPDATE Publisher SET bookName = ?, bookPage = ?, author_id = ?, category_id = ?, publisher_id = ? , printingDate = ? WHERE id = ? ";
+		
+		Connection conn = null;
 
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, Book.getBookName());
+			ps.setInt(2, Book.getBookPage());
+			ps.setInt(3, Book.getAuthor_id());
+			ps.setInt(4, Book.getCategory_id());
+			ps.setInt(5, Book.getPublisher_id());
+			ps.setDate(6, Book.getPrintingDate());
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {}
+			}
+		}
+	}
+	
+	
 	public Book getBook(int Bookid){
 
 		String sql = "SELECT * FROM Book WHERE id = ?";

@@ -17,26 +17,32 @@ public class Publisher {
 	
 		
 	}
-	public Publisher(String name,int addres_id){
+	public Publisher(String name,int address_id){
 		this.id = 0;
 		this.name = name;
 		this.address_id = address_id;
+	}
+	public Publisher(String name,Address address){
+		this.id = 0;
+		this.name = name;
+		this.address_id = address.getId();
 	}
 	public Publisher(){
 		this.id=0;
 		this.name=null;
 		this.address_id =0;
 	}
-	public int getID() {
+	public int getId() {
 		return id;
 	}
+	
 	public int getAddress_id() {
 		return address_id;
 	}
 	public void setAddress_id(int address_id) {
 		this.address_id = address_id;
 	}
-	public void setID(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -52,6 +58,15 @@ public class Publisher {
     			new ClassPathXmlApplicationContext("Spring-Module.xml");
     		    	JdbcAddressDao AddressDao = (JdbcAddressDao) context.getBean("addressDao");
     		return AddressDao.getAddress(address_id);
+	}
+	
+	public void setAddress(Address add){
+			address_id = add.getId();
+		
+	}
+	@Override
+	public String toString() {
+		return "Publisher [id=" + id + ", name=" + name + ", address_id=" + address_id + ", address=" + address + "]";
 	}
 	
 	

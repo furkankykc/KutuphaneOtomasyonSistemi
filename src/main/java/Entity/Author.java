@@ -29,10 +29,10 @@ public class Author {
 		this.lastName=lastname;
 		this.address_id=address_id;
 	}	
-	public int getID() {
+	public int getId() {
 		return id;
 	}
-	public void setID(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getFirstName() {

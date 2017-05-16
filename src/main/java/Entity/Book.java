@@ -54,10 +54,10 @@ public class Book {
 		this.publisher_id=publisher_id;
 		this.printingDate=printingDate;
 	}
-	public int getID() {
+	public int getId() {
 		return id;
 	}
-	public void setID(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getBookName() {

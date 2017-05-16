@@ -25,7 +25,7 @@
    <td> Category</td>
         <tr>
         
-         	<td>ID</td>
+         	<td>Id</td>
             <td>NAME</td>
 
         </tr>
@@ -33,14 +33,14 @@
         
 <c:forEach items="${categories}" var="cat">
 			<tr>
-			<td>${cat.getID()} </td>
+			<td>${cat.getId()} </td>
 			<td>${cat.getName()}</td>
 			
 <form:form method="POST" action="Category">
-			<input type="hidden" value="${cat.getID()}" name="id">
+			<input type="hidden" value="${cat.getId()}" name="id">
 			
 			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
-			<!--<td> <button name="CurrentDelete" value="${cat.getID()}" type="submit">Delete</button></td>
+			<!--<td> <button name="CurrentDelete" value="${cat.getId()}" type="submit">Delete</button></td>
 			-->
 			
  </form:form>

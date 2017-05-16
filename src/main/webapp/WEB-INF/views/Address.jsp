@@ -28,7 +28,7 @@
    <td> Address</td>
         <tr>
         
-         	<td>ID</td>
+         	<td>Id</td>
             <td>Name</td>
             <td>Street</td>
             <td>Road</td>
@@ -39,7 +39,7 @@
         
 <c:forEach items="${addresses}" var="adrs">
 			<tr>
-			<td>${adrs.getID()} </td>
+			<td>${adrs.getId()} </td>
 			<td>${adrs.getName()}</td>
 			<td>${adrs.getStreet() }</td>
 			<td>${adrs.getRoad() }</td>

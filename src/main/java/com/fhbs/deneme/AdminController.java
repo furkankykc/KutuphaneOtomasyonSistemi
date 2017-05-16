@@ -74,9 +74,6 @@ public class AdminController {
 	    	}
 	}
 	
-	
-	    
-	    @RequestMapping(params = "remove",method = RequestMethod.POST)
 	    public String remove(HttpServletRequest request,ModelMap modelMap,@RequestParam String remove) {
 	    	ApplicationContext context =
 		    		new ClassPathXmlApplicationContext("Spring-Module.xml");

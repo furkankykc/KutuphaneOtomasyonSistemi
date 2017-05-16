@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 import Entity.Author;
+import Entity.Author;
 
 public class JdbcAuthorDao {
 	private DataSource dataSource;
@@ -46,7 +47,7 @@ public class JdbcAuthorDao {
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Author.getID());
+			ps.setInt(1, Author.getId());
 			ps.setString(2,	Author.getFirstName());
 			ps.executeUpdate();
 			ps.close();
@@ -64,17 +65,16 @@ public class JdbcAuthorDao {
 	public void insert(Author Author){
 
 		String sql = "INSERT INTO Author " +
-				"(id,firstName,lastName,address_id) VALUES (?, ?, ?, ?)";
+				"(firstName,lastName,address_id) VALUES (?, ?, ?)";
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, Author.getID());
-			ps.setString(2, Author.getFirstName());
-			ps.setString(3, Author.getLastName());
-			ps.setInt(4, Author.getAddress().getID());
+			ps.setString(1, Author.getFirstName());
+			ps.setString(2, Author.getLastName());
+			ps.setInt(3, Author.getAddress_id());
 			ps.executeUpdate();
 			ps.close();
 
@@ -89,7 +89,35 @@ public class JdbcAuthorDao {
 			}
 		}
 	}
-	public void update(Author Author){}
+	public void update(Author Author){
+		String sql = "UPDATE Author SET firstName = ?, lastName = ?, address_id = ? WHERE id = ? ";
+		
+		Connection conn = null;
+
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, Author.getFirstName());
+			ps.setString(2, Author.getLastName());
+			ps.setInt(3,Author.getAddress_id());
+			ps.setInt(4, Author.getId());
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {}
+			}
+		}
+	}
+	
+	
 	public Author getAuthor(int Authorid){
 
 		String sql = "SELECT * FROM Author WHERE id = ?";

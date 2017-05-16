@@ -26,7 +26,7 @@
 
   <table border="1">
         <tr>
-        	<td>ID</td>
+        	<td>Id</td>
          	<td>KİTAP ADI</td>
             <td>YAZARI</td>
             <td>KATEGORİ</td>
@@ -37,7 +37,7 @@
         
 <c:forEach items="${books}" var="book">
 			<tr>
-			<td>${book.getID()} </td>
+			<td>${book.getId()} </td>
 			<td>${book.getBookName()} </td>	
 			<td>${book.getAuthor().getFirstName()}</td>
 			<td>${book.getCategory().getName()}</td>
@@ -45,7 +45,7 @@
 			<td>${book.getBookPage()}</td>
 			
 <form:form method="POST" action="Book">
-			<input type="hidden" value="${book.getID()}" name="id">
+			<input type="hidden" value="${book.getId()}" name="id">
 			
 			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
 			

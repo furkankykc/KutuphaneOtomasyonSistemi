@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
-import Entity.Category;;
+import Entity.Category;
 
 public class JdbcCategoryDao {
 	private DataSource dataSource;
@@ -41,13 +41,12 @@ public class JdbcCategoryDao {
 	}
 	public void delete(Category Category) {
 		String sql  = "DELETE FROM Category " +
-				"WHERE id=? and catName=?";
+				"WHERE id=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Category.getID());
-			ps.setString(2,	Category.getName());
+			ps.setInt(1, Category.getId());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -64,15 +63,15 @@ public class JdbcCategoryDao {
 	public void insert(Category Category){
 
 		String sql = "INSERT INTO Category " +
-				"(id,catName) VALUES (?, ?)";
+				"(catName) VALUES (?)";
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, Category.getID());
-			ps.setString(2, Category.getName());
+			
+			ps.setString(1, Category.getName());
 			ps.executeUpdate();
 			ps.close();
 
@@ -87,7 +86,34 @@ public class JdbcCategoryDao {
 			}
 		}
 	}
+	public void update(Category Category){
+		String sql = "UPDATE Category SET catName = ?,WHERE id = ? ";
+		
+		Connection conn = null;
 
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, Category.getName());
+			ps.setInt(2, Category.getId());
+			
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {}
+			}
+		}
+	}
+	
+	
 	public Category getCategory(int id){
 
 		String sql = "SELECT * FROM Category WHERE id = ?";
@@ -121,7 +147,6 @@ public class JdbcCategoryDao {
 		}
 	}
 	
-	@SuppressWarnings("unused")
 	public ArrayList<Category> getCategory(){
 		String sql = "SELECT * FROM Category ";
 		CategoryList = new ArrayList<Category>();
@@ -129,7 +154,7 @@ public class JdbcCategoryDao {
 		
 		try {
 			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement("select * from Category");
+			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) 
 				this.CategoryList.add(new Category(

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
+import Entity.Publisher;
 import Entity.User;;
 
 public class JdbcUserDao {
@@ -18,14 +19,14 @@ public class JdbcUserDao {
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	public void delete(int IDUser) {
+	public void delete(int IdUser) {
 		String sql  = "DELETE FROM User " +
 				"WHERE idUser=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, IDUser);
+			ps.setInt(1, IdUser);
 			ps.executeUpdate();
 			ps.close();
 			
@@ -46,7 +47,7 @@ public class JdbcUserDao {
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, User.getID());
+			ps.setInt(1, User.getId());
 			ps.setString(2,	User.getUserName());
 			ps.executeUpdate();
 			ps.close();
@@ -87,7 +88,36 @@ public class JdbcUserDao {
 			}
 		}
 	}
+	public void update(User User){
+		String sql = "UPDATE User SET firstName = ?, lastName = ?, address_id = ?, userName = ?, password = ? WHERE id = ? ";
+		
+		Connection conn = null;
 
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, User.getFirstName());
+			ps.setString(2, User.getLastName());
+			ps.setInt(3, User.getAddress_id());
+			ps.setString(2, User.getUserName());
+			ps.setString(2, User.getPassword());
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {}
+			}
+		}
+	}
+	
+	
 	public User getUser(int idUSer){
 
 		String sql = "SELECT * FROM User WHERE idUser = ?";
@@ -105,6 +135,7 @@ public class JdbcUserDao {
 					rs.getInt("idUser"),
 					rs.getString("firstName"),
 					rs.getString("lastName"),
+					rs.getInt("address_id"),
 					rs.getString("userName"),
 					rs.getString("password")
 				);
@@ -139,6 +170,7 @@ public class JdbcUserDao {
 					rs.getInt("idUser"),
 					rs.getString("firstName"),
 					rs.getString("lastName"),
+					rs.getInt("address_id"),
 					rs.getString("userName"),
 					rs.getString("password")
 				);
@@ -170,6 +202,7 @@ public class JdbcUserDao {
 						rs.getInt("idUser"),
 						rs.getString("firstName"),
 						rs.getString("lastName"),
+						rs.getInt("address_id"),
 						rs.getString("userName"),
 						rs.getString("password")
 				));

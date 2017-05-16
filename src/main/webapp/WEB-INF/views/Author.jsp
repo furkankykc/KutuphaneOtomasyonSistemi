@@ -26,7 +26,7 @@
   
          <td> AUTHOR</td>
         <tr>
-         	<td>ID</td>
+         	<td>Id</td>
             <td>FIRST NAME</td>
             <td>LAST NAME</td>
             <td>ADDRESS</td>
@@ -36,12 +36,12 @@
         
 <c:forEach items="${authors}" var="auth">
 			<tr>
-			<td>${auth.getID()} </td>
+			<td>${auth.getId()} </td>
 			<td>${auth.getFirstName()}</td>
 			<td>${auth.getLastName()}</td>
 			<td>${auth.getAddress().getName()}</td>
 <form:form method="POST" action="Author">
-			<input type="hidden" value="${auth.getID()}" name="id">
+			<input type="hidden" value="${auth.getId()}" name="id">
 			
 			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
 			

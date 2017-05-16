@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 import Entity.Address;
+import Entity.Publisher;
 
 public class JdbcAddressDao {
 	private DataSource dataSource;
@@ -46,7 +47,7 @@ public class JdbcAddressDao {
 		try{
 			conn = dataSource.getConnection();
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, Address.getID());;
+			ps.setInt(1, Address.getId());;
 			ps.executeUpdate();
 			ps.close();
 			
@@ -88,7 +89,36 @@ public class JdbcAddressDao {
 			}
 		}	
 	}
+	public void update(Address Address){
+		String sql = "UPDATE Address SET name = ?, street = ?, road = ?, buildNo = ? WHERE id = ? ";
+		
+		Connection conn = null;
 
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, Address.getName());
+			ps.setString(2, Address.getStreet());
+			ps.setString(3, Address.getRoad());
+			ps.setString(4, Address.getBuildNo());
+			ps.setInt(5, Address.getId());
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {}
+			}
+		}
+	}
+	
+	
 	public Address getAddress(int id){
 
 		if(id<1) return null;
