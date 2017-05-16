@@ -95,7 +95,7 @@ public class JdbcBookDao {
 		}
 	}
 	public void update(Book Book){
-		String sql = "UPDATE Publisher SET bookName = ?, bookPage = ?, author_id = ?, category_id = ?, publisher_id = ? , printingDate = ? WHERE id = ? ";
+		String sql = "UPDATE Book SET bookName = ?, bookPage = ?, author_id = ?, category_id = ?, publisher_id = ? , printingDate = ? WHERE id = ? ";
 		
 		Connection conn = null;
 
@@ -109,6 +109,7 @@ public class JdbcBookDao {
 			ps.setInt(4, Book.getCategory_id());
 			ps.setInt(5, Book.getPublisher_id());
 			ps.setDate(6, Book.getPrintingDate());
+			ps.setInt(7, Book.getId());
 			ps.executeUpdate();
 			ps.close();
 

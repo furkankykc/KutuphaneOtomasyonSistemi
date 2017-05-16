@@ -31,41 +31,37 @@ public class PublisherController {
 	
 	
 	
-	   @Autowired
-	    @Qualifier("PublisherValidator")
-	    private Validator validator;
-	    
-	    @InitBinder
-	    private void initBinder(WebDataBinder binder) {
-	        binder.setValidator(validator);
-	    }
+//	   @Autowired
+//	    @Qualifier("PublisherValidator")
+//	    private Validator validator;
+//	    
+//	    @InitBinder
+//	    private void initBinder(WebDataBinder binder) {
+//	        binder.setValidator(validator);
+//	    }
 	    @ModelAttribute("PublisherBean")
-	    public Publisher getTransactionHelper(){
+	    public Publisher getPublisherBean(){
 	        return new Publisher();
 	    }
 	    
-	    
+	    ApplicationContext context =
+   			 
+    			new ClassPathXmlApplicationContext("Spring-Module.xml");
+    		    	JdbcPublisherDao PublisherDao = (JdbcPublisherDao) context.getBean("publisherDao");
+    		    	JdbcAddressDao AddressDao = (JdbcAddressDao) context.getBean("addressDao");
+    		    	
 	  @RequestMapping(value = "/Publisher", method = RequestMethod.GET)
 	    public String init(Model model) {
-	    	ApplicationContext context =
-	    			 
-	    			new ClassPathXmlApplicationContext("Spring-Module.xml");
-	    		    	JdbcPublisherDao PublisherDao = (JdbcPublisherDao) context.getBean("publisherDao");
-	    		    	JdbcAddressDao AddressDao = (JdbcAddressDao) context.getBean("addressDao");
-	    		    	
-	    		    			model.addAttribute("address",AddressDao.getAddress());
-	    						model.addAttribute("publishers",PublisherDao.getPublisher());
-	    						model.addAttribute("yayım",new Publisher());	
+	    	
+			model.addAttribute("address",AddressDao.getAddress());
+			model.addAttribute("publishers",PublisherDao.getPublisher());
+			
 
 	        return "Publisher";	
 	    }
 	  
 	    @RequestMapping(value = "/Publisher",params="add",method = RequestMethod.POST)
 	    public String add(Model model,@Validated Publisher PublisherBean, @RequestParam String add) {
-	    	ApplicationContext context =
-		    		new ClassPathXmlApplicationContext("Spring-Module.xml");
-	    	JdbcPublisherDao PublisherDao = (JdbcPublisherDao) context.getBean("publisherDao");
-	    	System.out.println(PublisherBean);
 	    	if(PublisherBean!=null){
 	    		if(PublisherBean.getName()!=""){
 	    			if(PublisherBean.getAddress()!=null){
@@ -89,9 +85,6 @@ public class PublisherController {
 	    
 	    @RequestMapping(params = "del",method = RequestMethod.POST)
 	    public String delete(Model model, @ModelAttribute("PublisherBean") Publisher PublisherBean,@RequestParam String del) {
-	    	ApplicationContext context =
-		    		new ClassPathXmlApplicationContext("Spring-Module.xml");
-	    	JdbcPublisherDao PublisherDao = (JdbcPublisherDao) context.getBean("publisherDao");
 	    	if(PublisherBean!=null){
 	    	PublisherDao.delete(PublisherBean);
 	    	return "Publisher";
@@ -99,25 +92,45 @@ public class PublisherController {
 	    		return "Publisher";
 	    	}
 	}
+	    @RequestMapping(params = "details",method = RequestMethod.POST)
+	    public String details(Model model, @ModelAttribute("PublisherBean") Publisher PublisherBean,@RequestParam String details) {
+    		if(PublisherBean!=null){
+	    		model.addAttribute("publisher",PublisherBean);
+	    		model.addAttribute("address",AddressDao.getAddress());
+				return "PublisherDetail";
+	    	}else{
+	    		return "Publisher";
+	    	}
+	}
+	    @RequestMapping(params = "update",method = RequestMethod.POST)
+	    public String update(Model model, @ModelAttribute("PublisherBean") Publisher PublisherBean,@RequestParam String update) {
+	    	if(PublisherBean!=null){
+	    		PublisherDao.update(PublisherBean);
+	    		model.addAttribute("msg","id = "+PublisherBean.getId()+" olan Publisher güncellendi.");
+				return init(model);
+	    	}else{
+
+	    		model.addAttribute("publisher",PublisherBean);
+	    		model.addAttribute("address",AddressDao.getAddress());
+	    		return "PublisherDetail";
+	    	}
+	}
 	    @RequestMapping(value = "/Publisher",params = "remove",method = RequestMethod.POST)
 	    public String remove(HttpServletRequest request,ModelMap modelMap,@RequestParam String remove) {
-	    	ApplicationContext context =
-		    		new ClassPathXmlApplicationContext("Spring-Module.xml");
-	    	JdbcPublisherDao PublisherDao = (JdbcPublisherDao) context.getBean("publisherDao");
-	    	try{
-	    	if(request.getParameter("id")!=null){
-	    	String id = request.getParameter("id");
-	    		System.out.println("||||||||||||||||||||||||"+id+"||||||||||||||||||-");
-	    		PublisherDao.delete(id);
-	    	}
-	    		
-	    	
-	    	}catch(Exception e){
-	    		modelMap.put("error", e);
-	    	}
-	    	modelMap.addAttribute("publishers",PublisherDao.getPublisher());
-	    		return "Publisher";
-	    	
-	}
+		    try{
+		    	if(request.getParameter("id")!=null){
+		    	String id = request.getParameter("id");
+		    		System.out.println("||||||||||||||||||||||||"+id+"||||||||||||||||||-");
+		    		PublisherDao.delete(id);
+		    	}
+		    		
+		    	
+		    	}catch(Exception e){
+		    		modelMap.put("error", e);
+		    	}
+		    	modelMap.addAttribute("publishers",PublisherDao.getPublisher());
+		    		return "Publisher";
+		    	
+		}
 
 }

@@ -38,7 +38,9 @@
 			
 <form:form method="POST" action="Category">
 			<input type="hidden" value="${cat.getId()}" name="id">
+			<input type="hidden" value="${cat.getName()}" name="name">
 			
+			<td><label>&nbsp;</label> <input type="submit" name ="details" action ="details" value = "details" class = "btn"></td>
 			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
 			<!--<td> <button name="CurrentDelete" value="${cat.getId()}" type="submit">Delete</button></td>
 			-->

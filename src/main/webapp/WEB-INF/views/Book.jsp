@@ -12,17 +12,34 @@
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<form:form name="gettingtext" action="" method="POST">
-<ul>
-    <li><label>Kitap Adı:</label> <input type='text' name='bookName' />
-    <label>Yazarı:</label> <input type='int' name='author_id' />
-    <label>Sayfa Sayısı</label> <input type='int' name='bookPage' />
-    <label>Kategori</label> <input type='int' name='category_id' />
-    <label>Yayıncı</label> <input type='int' name='publisher_id' />
     
-    <label>&nbsp;</label> <input name="add" action="add"  type="submit" value="Ekle" class="btn">
-    </ul>
-</form:form><dl>
+    
+    <form:form commandName="BookBean" action="" method="POST">
+    	<label>Kitap Adı:</label> <input type='text' name='bookName' />
+    	<label>Sayfa Sayısı</label> <input type='int' name='bookPage' />
+    	<form:select path="author_id" id="author_id">
+			<c:forEach items="${author}" var="c">
+				<form:option name="author_id" value="${c.getId()}" label="${c.getFirstName() }" />
+			</c:forEach>
+		</form:select>
+		<form:select path="category_id" id="category_id">
+			<c:forEach items="${category}" var="c">
+				<form:option name="category_id" value="${c.getId()}" label="${c.getName() }" />
+			</c:forEach>
+		</form:select>
+		<form:select path="publisher_id" id="publisher_id">
+			<c:forEach items="${publisher}" var="c">
+				<form:option name="publisher_id" value="${c.getId()}" label="${c.getName() }" />
+			</c:forEach>
+		</form:select>
+		<input name="add" action="add"  type="submit" value="Ekle" class="btn">
+	
+	</form:form>
+		<div style="color: red">${msg}</div>
+
+
+    
+    
 
   <table border="1">
         <tr>
@@ -46,7 +63,13 @@
 			
 <form:form method="POST" action="Book">
 			<input type="hidden" value="${book.getId()}" name="id">
-			
+			<input type="hidden" value="${book.getBookName()}" name="bookName">
+			<input type="hidden" value="${book.getBookPage()}" name="bookPage">
+			<input type="hidden" value="${book.getAuthor_id()}" name="author_id">
+			<input type="hidden" value="${book.getCategory_id()}" name="category_id">
+			<input type="hidden" value="${book.getPublisher_id()}" name="publisher_id">
+<%-- 			<input type="hidden" value="${book.getPrintingDate()}" name="printingDate"> --%>
+			<td><label>&nbsp;</label> <input type="submit" name ="details" action ="details" value = "details" class = "btn"></td>
 			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
 			
 	 </form:form>

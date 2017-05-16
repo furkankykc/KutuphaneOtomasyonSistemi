@@ -46,7 +46,13 @@
 			<td>${adrs.getBuildNo() }</td>
 			
 <form:form method="POST" action="Address">
-			<input type="hidden" value="${cat.getId()}" name="id">
+			<input type="hidden" value="${adrs.getId()}" name="id">
+			<input type="hidden" value="${adrs.getName()}" name="name">
+		    <input type="hidden" value="${adrs.getStreet()}" name="street">
+		    <input type="hidden" value="${adrs.getRoad()}" name="road">
+		    <input type="hidden" value="${adrs.getBuildNo()}" name="buildNo">
+					
+			<td><label>&nbsp;</label> <input type="submit" name ="details" action ="details" value = "details" class = "btn"></td>
 			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
 			<!--<td> <button name="CurrentDelete" value="${cat.getId()}" type="submit">Delete</button></td>
 			-->

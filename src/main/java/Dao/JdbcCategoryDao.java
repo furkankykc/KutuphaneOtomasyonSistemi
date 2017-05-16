@@ -87,7 +87,7 @@ public class JdbcCategoryDao {
 		}
 	}
 	public void update(Category Category){
-		String sql = "UPDATE Category SET catName = ?,WHERE id = ? ";
+		String sql = "UPDATE Category SET catName = ? WHERE id = ? ";
 		
 		Connection conn = null;
 

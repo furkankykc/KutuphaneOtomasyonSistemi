@@ -12,15 +12,27 @@
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<form:form name="gettingtext" action="" method="POST">
-<ul>
-    <li><label>First Name</label> <input type='text' name='firstName' />
+<form:form commandName="AuthorBean" action="" method="POST">
+
+<li><label>First Name</label> <input type='text' name='firstName' />
     <label>Last Name</label> <input type='text' name='lastName' />
-    <label>Address</label> <input type='text' name='address_id' />
-    
-    <label>&nbsp;</label> <input name="add" action="add"  type="submit" value="Ekle" class="btn">
-    </ul>
-</form:form><dl>
+<form:select path="address_id" id="address_id">
+					  
+					  
+					  <c:forEach items="${address}" var="c">
+					  
+					  <form:option name="address_id" value="${c.getId()}" label="${c.getName() }" />
+				       
+	</c:forEach>
+				       </form:select>
+				<form:errors path="address_id" cssStyle="color: #ff0000;" />
+		
+				<input name="add" action="add"  type="submit" value="Ekle" class="btn">
+	
+</form:form>
+		<div style="color: red">${msg}</div>
+
+
 
   <table border="1">
   
@@ -42,7 +54,10 @@
 			<td>${auth.getAddress().getName()}</td>
 <form:form method="POST" action="Author">
 			<input type="hidden" value="${auth.getId()}" name="id">
-			
+			<input type="hidden" value="${auth.getFirstName()}" name="firstName">
+			<input type="hidden" value="${auth.getLastName()}" name="lastName">
+			<input type="hidden" value="${auth.getAddress_id()}" name="address_id">
+			<td><label>&nbsp;</label> <input type="submit" name ="details" action ="details" value = "details" class = "btn"></td>
 			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
 			
 	 </form:form>

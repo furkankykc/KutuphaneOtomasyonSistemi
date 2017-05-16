@@ -92,7 +92,9 @@
 			<td>${pbls.getAddress().getName()}</td>
 <form:form method="POST" action="Publisher">
 			<input type="hidden" value="${pbls.getId()}" name="id">
-			
+			<input type="hidden" value="${pbls.getName()}" name="name">
+			<input type="hidden" value="${pbls.getAddress_id()}" name="address_id">
+			<td><label>&nbsp;</label> <input type="submit" name ="details" action ="details" value = "details" class = "btn"></td>
 			<td><label>&nbsp;</label> <input type="submit" name ="remove" action ="remove" value = "delete" class = "btn"></td>
 			<!--<td> <button name="CurrentDelete" value="${cat.getId()}" type="submit">Delete</button></td>
 			-->

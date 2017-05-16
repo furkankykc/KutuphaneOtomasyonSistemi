@@ -14,38 +14,50 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import Dao.JdbcAddressDao;
 import Entity.Address;
+import Entity.Address;
 
 @RequestMapping(value="/Address")
 @Controller
 public class AddressController {
-	  @RequestMapping(value = "/Address", method = RequestMethod.GET)
-	    public String init(Model model) {
-	    	ApplicationContext context =
-	    			 
-	    			new ClassPathXmlApplicationContext("Spring-Module.xml");
-	    		    	JdbcAddressDao AddressDao = (JdbcAddressDao) context.getBean("addressDao");
-	    		    	
-	    						model.addAttribute("addresses",AddressDao.getAddress());
-	    							    	
-
-	        return "Address";	
+	ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
+	JdbcAddressDao AddressDao = (JdbcAddressDao) context.getBean("addressDao");
+		    
+	@RequestMapping(value = "/Address", method = RequestMethod.GET)
+    public String init(Model model) {
+		model.addAttribute("addresses",AddressDao.getAddress());
+	    return "Address";	
 	    }
 	    @RequestMapping(value = "/Address",params="add",method = RequestMethod.POST)
 	    public String add(Model model, @ModelAttribute("AddressBean") Address AddressBean,@RequestParam String add) {
-	    	ApplicationContext context =
-		    		new ClassPathXmlApplicationContext("Spring-Module.xml");
-	    	JdbcAddressDao AddressDao = (JdbcAddressDao) context.getBean("addressDao");
-	    	
 	    	if(AddressBean!=null){
-	    	AddressDao.insert(AddressBean);
-	    		    	
-	    						model.addAttribute("addresses",  AddressDao.getAddress());
-					    	
-				return "Address";
+	    		AddressDao.insert(AddressBean);
+	    		model.addAttribute("addresses",  AddressDao.getAddress());
+	    		}
+	    	
+	    		return "Address";
+	    	}
+	    @RequestMapping(params = "details",method = RequestMethod.POST)
+		public String details(Model model, @ModelAttribute("AddressBean") Address AddressBean,@RequestParam String details) {
+			if(AddressBean!=null){
+				model.addAttribute("address",AddressBean);
+				return "AddressDetail";
 	    	}else{
 	    		return "Address";
 	    	}
-	}
+		 }
+			    @RequestMapping(params = "update",method = RequestMethod.POST)
+	    public String update(Model model, @ModelAttribute("AddressBean") Address AddressBean,@RequestParam String update) {
+			    	if(AddressBean!=null){
+			    		AddressDao.update(AddressBean);
+			    		model.addAttribute("msg","id = "+AddressBean.getId()+" olan Address güncellendi.");
+						return init(model);
+			    	}else{
+
+			    		model.addAttribute("Address",AddressBean);
+			    		return "AddressDetail";
+			    	}
+			}
+			  
 	    @RequestMapping(params = "del",method = RequestMethod.POST)
 	    public String delete(Model model, @ModelAttribute("AddressBean") Address AddressBean,@RequestParam String del) {
 	    	ApplicationContext context =

@@ -10,6 +10,12 @@ import Dao.JdbcCategoryDao;
 import Dao.JdbcPublisherDao;
 
 public class Book {
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", bookName=" + bookName + ", bookPage=" + bookPage + ", author_id=" + author_id
+				+ ", category_id=" + category_id + ", publisher_id=" + publisher_id + ", printingDate=" + printingDate
+				+ "]";
+	}
 	private int id;
 	private String bookName;
 	private int bookPage;
@@ -29,6 +35,15 @@ public class Book {
 	}
 	public Book(String bookName,int bookPage,int author_id,int category_id,int publisher_id){
 		this.id = 0;
+		this.bookName=bookName;
+		this.bookPage=bookPage;
+		this.author_id=author_id;
+		this.category_id=category_id;
+		this.publisher_id=publisher_id;
+		this.printingDate=null;
+	}
+	public Book(int id,String bookName,int bookPage,int author_id,int category_id,int publisher_id){
+		this.id = id;
 		this.bookName=bookName;
 		this.bookPage=bookPage;
 		this.author_id=author_id;
