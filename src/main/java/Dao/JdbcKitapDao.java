@@ -21,6 +21,33 @@ import javax.sql.DataSource;
 		public void setDataSource(DataSource dataSource) {
 			this.dataSource = dataSource;
 		}
+		public void update(String id,String ad,String Yazar){
+			String sql = "UPDATE kitap SET kitapadý= ? where id="+id+";UPDATE kitap SET kitapyazari= ? where id="+id+";";
+					
+			Connection conn = null;
+
+			try {
+				conn = dataSource.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql);
+				
+				ps.setString(1, kitap.getAd());
+				ps.setString(2, kitap.getYazar());
+				ps.executeUpdate();
+				ps.close();
+
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+
+			} finally {
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {}
+				}
+			}
+			
+			
+		}
 		public void delete(String kitapId) {
 			String sql  = "DELETE FROM kitap " +
 					"WHERE id=?";
