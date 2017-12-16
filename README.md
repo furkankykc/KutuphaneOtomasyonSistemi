@@ -22,4 +22,4 @@ yüklemek için yapılması gerekenler : 1- eclipse'de yada spring tool suite'de
 
 P.S:projeyi eklemede bi sıkıntı kalmadığına göre geliştirme işlemlerimize başlayabiliriz hayırlısıyla bu arada proje ismi->team-> commit diyerek açtıgımız pencereden ise güncelleme yaptıgımız dosyalarımızı stagged changese ekleyerek tabi commit message bölümünede ilgili düzenlemenizi açıklayıcı bir şekilde yazdıktan sonra commit and push butonuna tıklayarak ilk güncellemenizi yani commitinizi yapmış olursunuz. master bölümünü projenin sağlığı ve güvenliği açısından erişim kısıtı koydum,ben güncellemelerinizi takip edip teker teker projeye yerleştiricem.
 
-# Sınavınız 90 dakikadır gudlak :)
+
