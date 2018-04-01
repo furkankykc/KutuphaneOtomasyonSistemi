@@ -27,7 +27,7 @@ public class RunSqlScript {
 		// Create MySql Connection
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection con = DriverManager.getConnection(
-			"jdbc:mysql://localhost:3306", "root", "fur3808535qQ@");
+			"jdbc:mysql://localhost:3306", "root", "1234");
 		Statement stmt = null;
 
 		try {
