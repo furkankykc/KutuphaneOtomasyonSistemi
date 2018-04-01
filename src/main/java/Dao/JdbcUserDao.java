@@ -21,7 +21,7 @@ public class JdbcUserDao {
 	}
 	public void delete(int IdUser) {
 		String sql  = "DELETE FROM User " +
-				"WHERE idUser=?";
+				"WHERE id=?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
@@ -42,7 +42,7 @@ public class JdbcUserDao {
 	}
 	public void delete(User User) {
 		String sql  = "DELETE FROM User " +
-				"WHERE idUser=? and =userName?";
+				"WHERE id=? and =userName?";
 		Connection conn = null;
 		try{
 			conn = dataSource.getConnection();
@@ -167,7 +167,7 @@ public class JdbcUserDao {
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				this.User = new User(
-					rs.getInt("idUser"),
+					rs.getInt("id"),
 					rs.getString("firstName"),
 					rs.getString("lastName"),
 					rs.getInt("address_id"),
@@ -199,7 +199,7 @@ public class JdbcUserDao {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) 
 				this.UserList.add(new User(
-						rs.getInt("idUser"),
+						rs.getInt("id"),
 						rs.getString("firstName"),
 						rs.getString("lastName"),
 						rs.getInt("address_id"),
