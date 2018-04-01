@@ -24,27 +24,27 @@ create table User(
     address_id int,
     userName varchar(30),
     password varchar(30),
-    CONSTRAINT fk_user_address_id FOREIGN KEY (address_id) REFERENCES Address(id)
+    FOREIGN KEY (address_id) REFERENCES Address(id)
 );
-
+INSERT INTO User (userName,password) VALUES('root','1234');
 
 create table Publisher(
      id int primary key auto_increment,
      pubName varchar(30),
      address_id int,
-	 CONSTRAINT fk_publisher_address_id FOREIGN KEY (address_id) REFERENCES Address(id)
+	   FOREIGN KEY (address_id) REFERENCES Address(id)
      );
    
 
 
-INSERT INTO Publisher (pubName,address_id) VALUES ('furkan',6)
+INSERT INTO Publisher (pubName,address_id) VALUES ('furkan',6);
 
 create table Author(
-	id int not null primary key auto_increment,
+	  id int not null primary key auto_increment,
     firstName varchar(30),
     lastName varchar(30),
     address_id int,
-    CONSTRAINT fk_author_address_id FOREIGN KEY (address_id) REFERENCES Address(id)
+    FOREIGN KEY (address_id) REFERENCES Address(id)
 );
 
 create table Book(
@@ -56,9 +56,9 @@ create table Book(
     category_id int,
     publisher_id int,
     printingDate datetime,
-    CONSTRAINT fk_book_author_id FOREIGN KEY (author_id) REFERENCES Author(id),
-    CONSTRAINT fk_book_category_id FOREIGN KEY (category_id) REFERENCES Category(id),
-    CONSTRAINT fk_book_publisher_id FOREIGN KEY (publisher_id) REFERENCES Publisher(id)
+    FOREIGN KEY (author_id) REFERENCES Author(id),
+    FOREIGN KEY (category_id) REFERENCES Category(id),
+    FOREIGN KEY (publisher_id) REFERENCES Publisher(id)
     
 );
 create table Deposite(
@@ -66,6 +66,6 @@ create table Deposite(
     user_id int,
 	depositeDate datetime,
     deliveryDate datetime,
-    CONSTRAINT fk_book_id FOREIGN KEY (book_id) REFERENCES Book(id),
-    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES User(id)
+    FOREIGN KEY (book_id) REFERENCES Book(id),
+    FOREIGN KEY (user_id) REFERENCES User(id)
 );
