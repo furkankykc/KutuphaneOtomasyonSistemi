@@ -1,25 +1,26 @@
 # KutuphaneOtomasyonSistemi
 
-###Intellij Idea###
-indirdikden sonra ideadan import project dedikden sonra projenin bulunduğu klasörü seçilir.
+**Intellij Idea**
+>indirdikden sonra ideadan import project dedikden sonra projenin bulunduğu klasörü seçilir.
 güncelleme -> idea projesi haline getirildi artik open project diyerek direk acilabilir.
 edit runconfigration  menusunden yeni config server secilerek eklenir(+ simgesi)  yüklü olan server secilir 
 
 
-###Spring Tool Suite###
-yüklemek için yapılması gerekenler : 1- eclipse'de yada spring tool suite'de Window->Perspective->Open Perspective->Other->Git yaparak sağ üst bölüme eklenecek görünüm ayarlarından github-perspective'i seçmeniz lazım
+**Spring Tool Suite**
 
-2-değişen görünümde Git Repositories penceresinden Clone a git repositoryi seçerek çıkan bölümde githubdan projeyi bumanız gerekiyor.
+- eclipse'de yada spring tool suite'de Window->Perspective->Open Perspective->Other->Git yaparak sağ üst bölüme eklenecek görünüm ayarlarından github-perspective'i seçmeniz lazım
 
-3-projeyi local repository olarak ekledikten sonra import a project bölümünden projeyi ekleme seçeneklerinden import as general project'i seç
+- değişen görünümde Git Repositories penceresinden Clone a git repositoryi seçerek çıkan bölümde githubdan projeyi bumanız gerekiyor.
 
-4-sonra import edilen projeyi siliyoruz ama sadece projelerden tamamen dosyaları silmiyoruz.
+- projeyi local repository olarak ekledikten sonra import a project bölümünden projeyi ekleme seçeneklerinden import as general project'i seç
 
-5-projeyi sildikten sonra yine import project penceresinden maven->existing maven projecti işaretliyoruz ve github projesinin oldugu klasördeki projemizi seçiyoruz(genel de windows için c:\users\username\git içinde olur, linux ~home\git) suan proje açılır hale geldi sadece 3-5 ufak ayarlama yapmak gerekiyor.
+- sonra import edilen projeyi siliyoruz ama sadece projelerden tamamen dosyaları silmiyoruz.
 
-6- başta açtığımız github perspectifinden projemizi bulup remotes->origin in içindeki (kırmızı yukarıya dogru ok bulunan tip)2.seçeneğe sağ tıklamak kaydıyla configure push diyoruz burada ref mappings bölümünden add diyerek remote branch bölümüne kendi adınıza açtığım branchı ekliyoruz.
+- projeyi sildikten sonra yine import project penceresinden maven->existing maven projecti işaretliyoruz ve github projesinin oldugu klasördeki projemizi seçiyoruz(genel de windows için c:\users\username\git içinde olur, linux ~home\git) suan proje açılır hale geldi sadece 3-5 ufak ayarlama yapmak gerekiyor.
 
-7- herşeyi tamamiyle yaptığımıza göre artık projemizi kullandığımız server farketmeksizin servere ekliyip serveri çalıştırıyoruz
+- başta açtığımız github perspectifinden projemizi bulup remotes->origin in içindeki (kırmızı yukarıya dogru ok bulunan tip)2.seçeneğe sağ tıklamak kaydıyla configure push diyoruz burada ref mappings bölümünden add diyerek remote branch bölümüne kendi adınıza açtığım branchı ekliyoruz.
+
+- herşeyi tamamiyle yaptığımıza göre artık projemizi kullandığımız server farketmeksizin servere ekliyip serveri çalıştırıyoruz
 
 8- genelde kendi gelir ama bilgisayarlarınız hatadan geçilmediği için gelmedi diye var sayarak localhost:8080\KOS yazarak kontrol edebilirsiniz.(8080 yerine server portunu değiştirdiyseniz o portu yazmanız gerekiyor)
 
