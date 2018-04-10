@@ -1,5 +1,11 @@
 # KutuphaneOtomasyonSistemi
+##Intellij Idea
+indirdikden sonra ideadan import project dedikden sonra projenin bulunduğu klasörü seçilir.
+güncelleme -> idea projesi haline getirildi artik open project diyerek direk acilabilir.
+edit runconfigration  menusunden yeni config server secilerek eklenir(+ simgesi)  yüklü olan server secilir 
 
+
+##Spring Tool Suite
 yüklemek için yapılması gerekenler : 1- eclipse'de yada spring tool suite'de Window->Perspective->Open Perspective->Other->Git yaparak sağ üst bölüme eklenecek görünüm ayarlarından github-perspective'i seçmeniz lazım
 
 2-değişen görünümde Git Repositories penceresinden Clone a git repositoryi seçerek çıkan bölümde githubdan projeyi bumanız gerekiyor.
