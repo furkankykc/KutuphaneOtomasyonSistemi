@@ -1,7 +1,7 @@
 # KutuphaneOtomasyonSistemi
 
 **Intellij Idea**
->indirdikden sonra ideadan import project dedikden sonra projenin bulunduğu klasörü seçilir.
+indirdikden sonra ideadan import project dedikden sonra projenin bulunduğu klasörü seçilir.
 güncelleme -> idea projesi haline getirildi artik open project diyerek direk acilabilir.
 edit runconfigration  menusunden yeni config server secilerek eklenir(+ simgesi)  yüklü olan server secilir 
 
@@ -22,12 +22,12 @@ edit runconfigration  menusunden yeni config server secilerek eklenir(+ simgesi)
 
 - herşeyi tamamiyle yaptığımıza göre artık projemizi kullandığımız server farketmeksizin servere ekliyip serveri çalıştırıyoruz
 
-8- genelde kendi gelir ama bilgisayarlarınız hatadan geçilmediği için gelmedi diye var sayarak localhost:8080\KOS yazarak kontrol edebilirsiniz.(8080 yerine server portunu değiştirdiyseniz o portu yazmanız gerekiyor)
+- genelde kendi gelir ama bilgisayarlarınız hatadan geçilmediği için gelmedi diye var sayarak localhost:8080\KOS yazarak kontrol edebilirsiniz.(8080 yerine server portunu değiştirdiyseniz o portu yazmanız gerekiyor)
 
-9- src\main\resources bölümünden spring-datasource dosyasını bulup kendi databasemize göre güncelliyoruz. mysql kullanıyorsanız sadece parantez içindeki alanlara bilgilerinizi girerek düzenlemeniz gerekiyor.
+- src\main\resources bölümünden spring-datasource dosyasını bulup kendi databasemize göre güncelliyoruz. mysql kullanıyorsanız sadece parantez içindeki alanlara bilgilerinizi girerek düzenlemeniz gerekiyor.
 
-10- sql tablolarini olusturmak icin dao paketinin içinde bulunan runSqlScript classinin icindeki database ile ilgili bilgilerinizi eksiksiz ve hatasiz olarak doldurduktan sonra javaapp olarak çalıştırın.O sizin gerek duydugunuz veri tabanini tablolariyla birlikte olusturur. 
+- sql tablolarini olusturmak icin dao paketinin içinde bulunan runSqlScript classinin icindeki database ile ilgili bilgilerinizi eksiksiz ve hatasiz olarak doldurduktan sonra javaapp olarak çalıştırın.O sizin gerek duydugunuz veri tabanini tablolariyla birlikte olusturur. 
 
-P.S:projeyi eklemede bi sıkıntı kalmadığına göre geliştirme işlemlerimize başlayabiliriz hayırlısıyla bu arada proje ismi->team-> commit diyerek açtıgımız pencereden ise güncelleme yaptıgımız dosyalarımızı stagged changese ekleyerek tabi commit message bölümünede ilgili düzenlemenizi açıklayıcı bir şekilde yazdıktan sonra commit and push butonuna tıklayarak ilk güncellemenizi yani commitinizi yapmış olursunuz. master bölümünü projenin sağlığı ve güvenliği açısından erişim kısıtı koydum,ben güncellemelerinizi takip edip teker teker projeye yerleştiricem.
+> P.S:projeyi eklemede bi sıkıntı kalmadığına göre geliştirme işlemlerimize başlayabiliriz hayırlısıyla bu arada proje ismi->team-> commit diyerek açtıgımız pencereden ise güncelleme yaptıgımız dosyalarımızı stagged changese ekleyerek tabi commit message bölümünede ilgili düzenlemenizi açıklayıcı bir şekilde yazdıktan sonra commit and push butonuna tıklayarak ilk güncellemenizi yani commitinizi yapmış olursunuz. master bölümünü projenin sağlığı ve güvenliği açısından erişim kısıtı koydum,ben güncellemelerinizi takip edip teker teker projeye yerleştiricem.
 
 
